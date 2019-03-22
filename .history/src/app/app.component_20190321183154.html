@@ -1,0 +1,138 @@
+
+<div class="example-container">
+  <mat-toolbar  style="background-color: #2f3d4a;  color:white"  class="example-toolbar">
+          <button class="option-nav" mat-icon-button (click)="sidenav.toggle()" style="color:#67757c" >
+              <mat-icon *ngIf="!sidenav.opened">menu</mat-icon>
+              <mat-icon *ngIf="sidenav.opened">close</mat-icon>
+          </button>
+
+          <h1 class="example-app-name option-nav"  > Megasis</h1>
+          <mat-form-field  *ngIf="searchMode==='close'" style="width:50% ; color : #2ac4ea ;font-size: 14px ; margin-left: 10px"   >
+              <input   style="font-size: 14px ;  " matInput placeholder="buscar..">
+          </mat-form-field>
+
+          <span class="example-spacer"></span>
+          <div class="sinedav option-nav" >
+              <button mat-icon-button title="ultima ventas" >
+                <mat-icon aria-label="label">list</mat-icon>
+              </button>
+          </div>
+          <button class="option-nav" mat-icon-button title="buscar"   (click)="changeSeacch() " >
+              <mat-icon>{{searchMode}}</mat-icon>
+          </button>
+          <button  class="option-nav" mat-icon-button [matMenuTriggerFor]="menu">
+              <mat-icon>more_vert</mat-icon>
+          </button>
+
+          <mat-menu #menu="matMenu"    >
+              <button mat-menu-item [matMenuTriggerFor]="roles" routerLink="/perfil" >
+                  <mat-icon>account_box</mat-icon>
+                  <span *ngIf="userName">{{userName | uppercase }}</span>
+                  <span *ngIf="!userName">Anonimo</span>
+
+              </button>
+              <button mat-menu-item  (click)="sidenav.opened = false">
+                  <mat-icon>exit_to_app</mat-icon>
+                  <span>Cerrar Sesión</span>
+              </button>
+          </mat-menu>
+          <mat-menu #roles="matMenu"  >
+                  <mat-list>
+                    <h3 mat-subheader>Roles</h3>
+                    <mat-list-item *ngFor="let rol of userRoles">
+                      <mat-icon mat-list-icon>folder</mat-icon>
+                      <h4 mat-line>{{ rol.nombre | uppercase }}</h4>
+                      <mat-divider [inset]="true" *ngIf="!last"></mat-divider>
+                    </mat-list-item>
+                  </mat-list>
+          </mat-menu>
+      </mat-toolbar>
+
+      <mat-sidenav-container class="example-sidenav-container" >
+          <mat-sidenav #sidenav mode="side" class="menu-sinedav"   style="width: 200px">
+              <div class="logo" >
+                    <img src="https://lh3.googleusercontent.com/-YuZUWA6_26w/WUkgwPYIS_I/AAAAAAAAADI/gZDsSjYoyH8-qp19K-o6zS1nK6iPGQ8VQCEwYBhgL/w140-h140-p/image-portada-dragon.jpg" width="64">
+                    <br>
+                    <span *ngIf="userName" fxHide fxShow.gt-sm>{{userName | uppercase }}</span>
+                    <span *ngIf="!userName" fxHide fxShow.gt-sm class="name" >Anonimo</span>
+                    <br>
+                    <span style="font-size: 12px "   >Gerente</span>
+              </div>
+              <mat-divider></mat-divider>
+
+              <div class="container-sinedav" >
+                <button mat-menu-item  routerLink="/cliente"  style="cursor: pointer">
+                  <mat-icon>people</mat-icon>
+                  <span>Cliente</span>
+
+                </button>
+                <button mat-menu-item  routerLink="/cliente"  style="cursor: pointer">
+                  <mat-icon>shopping_basket</mat-icon>
+                  <span>Comprar</span>
+                </button>
+              </div>
+
+              <mat-divider></mat-divider>
+          </mat-sidenav>
+
+          <mat-sidenav-content>
+            <!--
+            <div style="margin: 25px ; overflow: hidden;">
+              <div fxLayout  FlexBox="row" fxLayout.xs="column"  >
+                  <div class="table"  style="margin: 10px; background-color: #30373e ;  border-radius: 5px"  >
+                      <mat-card style="  background-color: #30373e ;  border-radius: 5px">
+                        <mat-card-header>
+
+                          <mat-card-title>Personal</mat-card-title>
+                          <mat-card-subtitle>lista de todo empleados</mat-card-subtitle>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <mat-form-field style="color :#2ac4ea" >
+                                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+                              </mat-form-field>
+
+                              <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="width: 100%;background: #30373e" >
+
+
+                                <ng-container matColumnDef="position">
+                                  <th mat-header-cell *matHeaderCellDef> No. </th>
+                                  <td mat-cell *matCellDef="let element" style="color :#67757c"> {{element.position}} </td>
+                                </ng-container>
+
+                                
+                                <ng-container matColumnDef="foto">
+                                  <th mat-header-cell *matHeaderCellDef> Foto </th>
+                                  <td mat-cell *matCellDef="let element" style="color :#67757c"> <img  class="icon-personal" src="{{element.name}}" width="48"> </td>
+                                </ng-container>
+
+                                
+                                <ng-container matColumnDef="nombre">
+                                  <th mat-header-cell *matHeaderCellDef> Nombre </th>
+                                  <td mat-cell *matCellDef="let element" style="color :#67757c"> {{element.weight}} </td>
+                                </ng-container>
+
+                                
+                                <ng-container matColumnDef="symbol">
+                                  <th mat-header-cell *matHeaderCellDef> Tipo </th>
+                                  <td mat-cell *matCellDef="let element" style="color :#67757c"> {{element.symbol}} </td>
+                                </ng-container>
+
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                              </table>
+
+                        </mat-card-content>
+                      </mat-card>
+                  </div>
+                  <div  style="width: 30%;height: 400px ; margin: 10px; background-color: #30373e" >
+
+                  </div>
+              </div>
+            </div>
+          -->
+            <router-outlet></router-outlet>
+
+          </mat-sidenav-content>
+      </mat-sidenav-container>
+  </div>
+
