@@ -1,0 +1,11 @@
+export const HOST = /*window["cfgApiBaseUrl"];*/'http://localhost:8083';
+export const MICRO = "/api";
+export const AUTH_TOKEN="/oauth/token";
+export const MICRO_CRUD = 'micro-crud';
+export const MICRO_CR = 'micro-cr';
+export const MICRO_AUTH = 'uaa';
+export const REINTENTOS = 3;
+export const TOKEN_AUTH_USERNAME = 'testjwtclientid';
+export const TOKEN_AUTH_PASSWORD = 'XY7kmzoNzl100';
+export const TOKEN_NAME = 'access_token';
+export const USER_DATA = 'access_data';

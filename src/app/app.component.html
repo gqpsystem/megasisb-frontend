@@ -61,9 +61,9 @@
                 <mat-divider></mat-divider>
 
                 <div class="container-sinedav" >
-                  <button mat-menu-item  routerLink="/cliente"  style="cursor: pointer">
+                  <button mat-menu-item  routerLink="/unidad"  style="cursor: pointer">
                     <mat-icon>people</mat-icon>
-                    <span>Cliente</span>
+                    <span>Unidad Medida</span>
 
                   </button>
                   <button mat-menu-item  routerLink="/cliente"  style="cursor: pointer">
@@ -76,7 +76,7 @@
             </mat-sidenav>
 
             <mat-sidenav-content>
-
+                <router-outlet></router-outlet>
               <div style="margin: 25px ; overflow: hidden;">
                 <div fxLayout  FlexBox="row" fxLayout.xs="column"  >
                     <div class="table"  style="margin: 10px; background-color: #30373e ;  border-radius: 5px"  >
@@ -127,9 +127,6 @@
 
                 </div>
               </div>
-
-              <router-outlet></router-outlet>
-
             </mat-sidenav-content>
         </mat-sidenav-container>
     </div>
