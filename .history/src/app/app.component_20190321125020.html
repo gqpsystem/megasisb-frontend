@@ -1,0 +1,80 @@
+
+<div class="example-container">
+  <mat-toolbar  style="background-color: #2f3d4a;  color:white"  class="example-toolbar">
+          <button mat-icon-button (click)="sidenav.toggle()" style="color:#67757c" >
+              <mat-icon *ngIf="!sidenav.opened">menu</mat-icon>
+              <mat-icon *ngIf="sidenav.opened">close</mat-icon>
+          </button>
+
+          <h1 class="example-app-name">MiBanco</h1>
+
+          <span class="example-spacer"></span>
+
+          <button mat-icon-button [matMenuTriggerFor]="menu">
+              <mat-icon>more_vert</mat-icon>
+          </button>
+
+          <mat-menu #menu="matMenu"  style="background: #373f46"   >
+              <button mat-menu-item [matMenuTriggerFor]="roles" routerLink="/perfil" style="background: #373f46">
+                  <mat-icon>account_box</mat-icon>
+                  <span *ngIf="userName">{{userName | uppercase }}</span>
+                  <span *ngIf="!userName">Anonimo</span>
+
+              </button>
+              <button mat-menu-item  (click)="sidenav.opened = false">
+                  <mat-icon>exit_to_app</mat-icon>
+                  <span>Cerrar Sesión</span>
+              </button>
+          </mat-menu>
+          <mat-menu #roles="matMenu"  >
+                  <mat-list>
+                          <h3 mat-subheader>Roles</h3>
+                          <mat-list-item *ngFor="let rol of userRoles">
+                            <mat-icon mat-list-icon>folder</mat-icon>
+                            <h4 mat-line>{{ rol.nombre | uppercase }}</h4>
+                            <mat-divider [inset]="true" *ngIf="!last"></mat-divider>
+                          </mat-list-item>
+                        </mat-list>
+          </mat-menu>
+      </mat-toolbar>
+
+      <mat-sidenav-container class="example-sidenav-container" >
+          <mat-sidenav #sidenav mode="side" class="menu-sinedav"   style="width: 200px">
+              <div class="logo" >
+                    <img   src="https://lh3.googleusercontent.com/-YuZUWA6_26w/WUkgwPYIS_I/AAAAAAAAADI/gZDsSjYoyH8-qp19K-o6zS1nK6iPGQ8VQCEwYBhgL/w140-h140-p/image-portada-dragon.jpg" width="64">
+                    <br>
+                    <span *ngIf="userName" fxHide fxShow.gt-sm>{{userName | uppercase }}</span>
+                    <span *ngIf="!userName" fxHide fxShow.gt-sm class="name" >Anonimo</span>
+                    <br>
+                    <span style="font-size: 12px ; text-align: center"   >Gerente</span>
+              </div>
+              <mat-divider></mat-divider>
+              <div class="container-sinedav" >
+                <button mat-menu-item  routerLink="/cliente"  style="cursor: pointer">
+                  <mat-icon>people</mat-icon>
+                  <span>Cliente</span>
+
+                </button>
+                <button mat-menu-item  routerLink="/cliente"  style="cursor: pointer">
+                  <mat-icon>shopping_basket</mat-icon>
+                  <span>Comprar</span>
+                </button>
+              </div>
+
+              <mat-divider></mat-divider>
+          </mat-sidenav>
+
+          <mat-sidenav-content>
+            <div style="margin: 25px ;">
+              <h2>Conteiner:</h2>
+              <div style="width: 95% ; height: 200px; background-color: black ;  border-radius: 5px"  >
+
+              </div>
+            </div>
+            <!--
+              <router-outlet></router-outlet>
+              -->
+          </mat-sidenav-content>
+      </mat-sidenav-container>
+  </div>
+
