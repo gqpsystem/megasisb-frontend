@@ -18,6 +18,7 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
     UnidadListComponent,
     UnidadEditComponent
   ],
+  entryComponents: [UnidadEditComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

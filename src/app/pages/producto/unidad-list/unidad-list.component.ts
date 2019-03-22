@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatPaginator, MatSort, MatSnackBar, MatDialog } from '@angular/material';
 import { DataService } from 'src/app/data/data.service';
+import { UnidadEditComponent } from '../unidad-edit/unidad-edit.component';
+import { UnidadMedida } from 'src/app/model/unidad.model';
 
 @Component({
   selector: 'app-unidad-list',
@@ -38,6 +40,16 @@ export class UnidadListComponent implements OnInit {
     filterValue = filterValue.trim();
     filterValue = filterValue.toLowerCase();
     this.dataSource.filter = filterValue;
+  }
+
+  openDialog(unid:any): void {
+    let unidad = unid != null ? unid:new UnidadMedida();
+    const dialogRef = this.dialog.open(UnidadEditComponent, {
+      data: unidad
+    });
+    dialogRef.afterClosed().subscribe(result => {
+
+    });
   }
 
 }

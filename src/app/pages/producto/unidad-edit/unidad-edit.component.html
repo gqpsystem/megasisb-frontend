@@ -1,3 +1,17 @@
-<p>
-  unidad-edit works!
-</p>
+<h2 mat-dialog-title>Registrar Unidad Medida</h2>
+<mat-dialog-content class="mat-typography">
+  <form class="container" [formGroup]="form" #f="ngForm">
+      <mat-form-field appearance="outline">
+        <mat-label>Cod Unidad Medida</mat-label>
+        <input matInput placeholder="Numero de Cuenta" required formControlName="codUnidadmedida">
+      </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Descripcion</mat-label>
+          <input matInput placeholder="descripcion" required formControlName="descripcion">
+        </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+  <button mat-raised-button color="primary"  type="button" (click)="save()" [disabled]="f.invalid">Aceptar</button>
+</mat-dialog-actions>
