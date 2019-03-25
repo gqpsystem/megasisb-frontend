@@ -21,21 +21,21 @@ export class UnidadEditComponent implements OnInit {
 
   ngOnInit() {
     this.initFormBuilder();
-    this.id=this.data.idUnidadmedida;
+    this.id = this.data.idUnidadmedida;
     this.loadDataFrom();
   }
 
-  initFormBuilder(){
-    this.form=this.formBuilder.group({
-      idUnidadmedida:[null],
-      codUnidadmedida:[null,Validators.compose([Validators.required])],
-      descripcion:[null,Validators.compose([Validators.required])]
+  initFormBuilder() {
+    this.form = this.formBuilder.group({
+      idUnidadmedida: [null],
+      codUnidadmedida: [null, Validators.compose([Validators.required])],
+      descripcion: [null, Validators.compose([Validators.required])]
     });
   }
 
-  private loadDataFrom(){
-    if(this.id != null && this.data.idUnidadmedida > 0){
-      this.dataService.unidadMedidas().findById(this.id).subscribe(data =>{
+  private loadDataFrom() {
+    if (this.id != null && this.data.idUnidadmedida > 0) {
+      this.dataService.unidadMedidas().findById(this.id).subscribe(data => {
         this.form.patchValue(data);
       });
     }
@@ -44,15 +44,15 @@ export class UnidadEditComponent implements OnInit {
 
   save() {
     if (this.id != null && this.data.idUnidadmedida > 0) {
-      //update
+      // update
       this.dataService.unidadMedidas().update(this.form.value).subscribe(data => {
         this.dataService.unidadMedidas().getAll().subscribe(p => {
           this.dataService.providers().cambio.next(p);
-          this.dataService.providers().mensaje.next('se modifico')
+          this.dataService.providers().mensaje.next('se modifico');
         });
-      });     
+      });
     } else {
-      //insert
+      // insert
       this.dataService.unidadMedidas().create(this.form.value).subscribe(data => {
         this.dataService.unidadMedidas().getAll().subscribe(cuent => {
           this.dataService.providers().cambio.next(cuent);

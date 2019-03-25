@@ -1,0 +1,17 @@
+<h2 mat-dialog-title>Registrar Tipo de  Documento</h2>
+<mat-dialog-content class="mat-typography">
+  <form class="container" [formGroup]="form" #f="ngForm">
+      <mat-form-field appearance="outline">
+        <mat-label>Abreviatura</mat-label>
+        <input matInput placeholder="Abreviatura" required formControlName="abreviatura">
+      </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Denominacion</mat-label>
+          <input matInput placeholder="Denominacion" required formControlName="denominacionDoc">
+        </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+  <button mat-raised-button color="primary"  type="button" (click)="save()" [disabled]="f.invalid">Aceptar</button>
+</mat-dialog-actions>

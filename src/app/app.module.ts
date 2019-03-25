@@ -11,14 +11,24 @@ import { UnidadEditComponent } from './pages/producto/unidad-edit/unidad-edit.co
 import { Configuration } from './config/mega.config';
 import { ServerErrorsInterceptor } from './config/server-errors.interceptor';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { TipodocumentoListComponent } from './pages/compra/tipodocumento-list/tipodocumento-list.component';
+import { TipodocumentoEditComponent } from './pages/compra/tipodocumento-edit/tipodocumento-edit.component';
+import { DolenciaEditComponent } from './pages/producto/dolencia-edit/dolencia-edit.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     UnidadListComponent,
-    UnidadEditComponent
+    UnidadEditComponent,
+    TipodocumentoListComponent,
+    TipodocumentoEditComponent,
+    DolenciaEditComponent
   ],
-  entryComponents: [UnidadEditComponent],
+  entryComponents: [
+    UnidadEditComponent,
+    TipodocumentoEditComponent,
+    DolenciaEditComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -28,9 +38,9 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
     ReactiveFormsModule
   ],
   providers: [
-    Configuration,   
-    {provide: HTTP_INTERCEPTORS,useClass: ServerErrorsInterceptor,multi: true,},
-    {provide: LocationStrategy, useClass: HashLocationStrategy }
+    Configuration,
+    { provide: HTTP_INTERCEPTORS, useClass: ServerErrorsInterceptor, multi: true, },
+    { provide: LocationStrategy, useClass: HashLocationStrategy }
   ],
   bootstrap: [AppComponent]
 })

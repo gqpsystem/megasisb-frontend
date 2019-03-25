@@ -1,4 +1,4 @@
-export class UnidadMedida{
-    idUnidadmedida:number;
-    codUnidadmedida:String;
+export class UnidadMedida {
+    idUnidadmedida: number;
+    codUnidadmedida: String;
 }

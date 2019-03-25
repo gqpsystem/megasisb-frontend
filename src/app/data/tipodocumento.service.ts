@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { GenericService } from './generic.service';
 import { Observable } from 'rxjs';
-const basePath = 'unidadMedidas';
+const basePath = 'tipoDocumentos';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UnidadService {
+export class TipodocumentoService {
 
   constructor(private generic: GenericService) { }
 
@@ -33,5 +33,4 @@ export class UnidadService {
   delete(id: number): Observable<any> {
     return this.generic.all(basePath).one('eliminar', id).delete();
   }
-
 }

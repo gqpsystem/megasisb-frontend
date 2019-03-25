@@ -1,18 +1,17 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatPaginator, MatSort, MatSnackBar, MatDialog } from '@angular/material';
+import { MatTableDataSource, MatSort, MatPaginator, MatDialog, MatSnackBar } from '@angular/material';
 import { DataService } from 'src/app/data/data.service';
-import { UnidadEditComponent } from '../unidad-edit/unidad-edit.component';
-import { UnidadMedida } from 'src/app/model/unidad.model';
+import { Tipodocumento } from 'src/app/model/tipodocumento';
+import { TipodocumentoEditComponent } from '../tipodocumento-edit/tipodocumento-edit.component';
 
 @Component({
-  selector: 'app-unidad-list',
-  templateUrl: './unidad-list.component.html',
-  styleUrls: ['./unidad-list.component.scss']
+  selector: 'app-tipodocumento-list',
+  templateUrl: './tipodocumento-list.component.html',
+  styleUrls: ['./tipodocumento-list.component.scss']
 })
-export class UnidadListComponent implements OnInit {
+export class TipodocumentoListComponent implements OnInit {
 
-  lista: any[] = [];
-  displayedColumns: string[] = ['idUnidadmedida', 'codUnidadmedida', 'descripcion', 'acciones'];
+  displayedColumns: string[] = ['abreviatura', 'denominacion', 'acciones'];
   dataSource: MatTableDataSource<any>;
   cantidad: number;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -21,7 +20,7 @@ export class UnidadListComponent implements OnInit {
   constructor(private dataService: DataService, private snackBar: MatSnackBar, public dialog: MatDialog) { }
 
   ngOnInit() {
-    this.dataService.unidadMedidas().getAll().subscribe(data => this.setData(data));
+    this.dataService.tipoDocumentos().getAll().subscribe(data => this.setData(data));
     this.dataService.providers().cambio.subscribe(data => this.setData(data));
     this.dataService.providers().mensaje.subscribe(data => {
       this.snackBar.open(data, 'Mensaje', { duration: 3000 });
@@ -42,13 +41,12 @@ export class UnidadListComponent implements OnInit {
     this.dataSource.filter = filterValue;
   }
 
-  openDialog(unid: any): void {
-    const unidad = unid != null ? unid : new UnidadMedida();
-    const dialogRef = this.dialog.open(UnidadEditComponent, {
-      data: unidad
+  openDialog(documento: any): void {
+    const tipodoc = documento != null ? documento : new Tipodocumento();
+    const dialogRef = this.dialog.open(TipodocumentoEditComponent, {
+      data: tipodoc
     });
     dialogRef.afterClosed().subscribe(result => {
-
     });
   }
 
