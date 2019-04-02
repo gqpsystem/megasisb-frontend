@@ -1,0 +1,118 @@
+
+<mat-dialog-content>
+  <form [formGroup]="form" #f="ngForm" >
+    <div fxLayout="row wrap" fxFlex="95%" fxLayoutAlign="space-between start">
+        <H2 mat-dialog-title fxFlex="100%">Registrar/Editar Producto </H2>
+
+        <mat-form-field fxFlex="100%" fxFlex.xs="100%"  appearance="outline">
+          <mat-label>Nombre del producto</mat-label>
+          <input matInput placeholder="producto"  required formControlName="numProducto" />
+          <span matSuffix ><mat-icon>shopping_basket</mat-icon> </span>
+        </mat-form-field>
+
+        <div  fxLayout="row wrap" fxLayoutAlign="space-between start" fxFlex="100%" fxFlex.xs="100%"  appearance="outline">
+          <div  fxLayout="row wrap" fxLayoutAlign="space-between start"  fxFlex="65%" fxFlex.xs="100%" appearance="outline" >
+
+            <mat-form-field   fxFlex="100%" fxFlex.xs="100%" appearance="outline" >
+              <mat-label>Codigo del producto</mat-label>
+              <input matInput placeholder="codigo"  required formControlName="codigo" />
+            </mat-form-field>
+
+
+
+            <mat-form-field  fxFlex="45%" fxFlex.xs="100%"   appearance="outline">
+              <mat-label>Fecha de Vencimiento</mat-label>
+              <input matInput [matDatepicker]="picker" required formControlName="fechaVencimiento" placeholder="mm-dd-aaaa">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field  fxFlex="45%"  fxFlex.xs="100%"  appearance="outline">
+              <mat-label>Area</mat-label>
+              <input matInput required formControlName="area" placeholder="area" />
+            </mat-form-field>
+
+
+            <mat-form-field fxFlex="45%"  fxFlex.xs="100%" appearance="outline">
+              <mat-label>laboratorio</mat-label>
+              <input matInput required formControlName="laboratorio" placeholder="laboratorio" />
+            </mat-form-field>
+            <mat-form-field  fxFlex="45%"  fxFlex.xs="100%" appearance="outline">
+              <mat-label>Numero de Lote</mat-label>
+              <input required formControlName="numLote" matInput placeholder="Lote" />
+            </mat-form-field>
+
+
+          </div>
+          <div   fxFlex="25%" fxFlex.xs="100%" appearance="outline"  >
+            <span>Imagen del producto:</span>
+            <br>
+            <input type="file" style="visibility: hidden; opacity: 0;" (change)="changeImageProducto($event)" name="image" id="image">
+            <br>
+            <label class="image-producto" for="image">
+              <img [src]="ImageProducto" fxFlex="100%" alt="imagen del producto">
+            </label>
+          </div>
+
+        </div>
+
+
+
+
+        <mat-form-field fxFlex="30%"  fxFlex.xs="100%" >
+          <mat-label>Precio de Compra</mat-label>
+          <input matInput required formControlName="precioCompra" placeholder="precio de compra" type="number" >
+          <span matPrefix>$&nbsp;</span>
+        </mat-form-field>
+        <mat-form-field fxFlex="30%"  fxFlex.xs="100%"  >
+          <mat-label>Precio de venta</mat-label>
+          <input matInput required formControlName="precioVenta"  type="number" placeholder="precio de venta" />
+          <span matPrefix>$&nbsp;</span>
+        </mat-form-field>
+        <mat-form-field fxFlex="30%"  fxFlex.xs="100%" >
+          <mat-label>Stock</mat-label>
+          <input type="number" required formControlName="stock" matInput placeholder="stock" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline"  fxFlex="45%" fxFlex.xs="100%">
+          <mat-select placeholder="Dolencia" [compareWith]="compareDolencia" formControlName="dolencia"     >
+            <mat-option *ngFor="let dolencia of dolencias"  [value]="dolencia">
+              {{dolencia.dolencia}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field fxFlex="52%"  appearance="outline" fxFlex.xs="100%" >
+            <textarea matInput required formControlName="recomendacion" placeholder="Recomendacion"></textarea>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline"  fxFlex="45%" fxFlex.xs="100%">
+          <mat-select placeholder="Categoria" [compareWith]="compareCategoria"  formControlName="categoria"  >
+            <mat-option *ngFor="let categoria of categorias" [value]="categoria">
+              {{categoria.categoria}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline"  fxFlex="52%" fxFlex.xs="100%">
+          <mat-select placeholder="Unidad de Medida" formControlName="unidadMedida" [compareWith]="compareUnidadMedida"   >
+            <mat-option *ngFor="let medida of medidas"  [value]="medida">
+              {{medida.codUnidadmedida}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline"  fxFlex="100%" fxFlex.xs="100%">
+          <mat-select placeholder="Presentaciones"  [compareWith]="comparePresentacion"  formControlName="presentacion" >
+            <mat-option *ngFor="let presentacion of presentaciones"  [value]="presentacion">
+              {{presentacion.presentacion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-dialog-actions fxFlex="100%" align="center">
+          <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+          <button mat-raised-button color="primary"  [disabled]="f.invalid" (click)="save()" type="button" >Aceptar</button>
+        </mat-dialog-actions>
+
+
+    </div>
+  </form>
+</mat-dialog-content>

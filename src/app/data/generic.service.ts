@@ -9,11 +9,11 @@ import { HttpClient } from '@angular/common/http';
 })
 export class GenericService {
 
-  private url: string;
+  private url: string; 
 
   constructor(private _http: HttpClient, private configuration: Configuration) {
-    this.url = configuration.api;
-  }
+    this.url = configuration.api;    
+  } 
 
   get path() {
     return this.url;
@@ -39,14 +39,14 @@ export class GenericService {
     return this._http.get(this.url).pipe(
       map((response) => {
         return response as any;
-      }), catchError((res) => this.onError(res)));
+      }), catchError((res) => { return this.onError(res); }));
   }
 
   post(obj?: any): Observable<Response> {
     return this._http.post(this.url, obj).pipe(
       map((response) => {
         return response as any;
-      }), catchError((res) => this.onError(res)));
+      }), catchError((res) => { return this.onError(res); }));
   }
 
   put(obj: any): Observable<Response> {
@@ -55,7 +55,7 @@ export class GenericService {
     return this._http.put(this.url, clone).pipe(
       map((response) => {
         return response as any;
-      }), catchError((res) => this.onError(res)));
+      }), catchError((res) => { return this.onError(res); }));
   }
 
   delete(): Observable<Response> {
@@ -63,7 +63,7 @@ export class GenericService {
       map((response) => {
         return response as any;
       }),
-      catchError((res) => this.onError(res)));
+      catchError((res) => { return this.onError(res); }));
   }
 
   clone(): GenericService {

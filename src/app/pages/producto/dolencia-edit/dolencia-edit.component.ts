@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { DataService } from 'src/app/data/data.service';
 
 @Component({
@@ -10,46 +10,47 @@ import { DataService } from 'src/app/data/data.service';
 })
 export class DolenciaEditComponent implements OnInit {
 
+
   id: number;
   form: FormGroup;
 
-  constructor(
-    private dialogRef: MatDialogRef<DolenciaEditComponent>,
+  constructor(private dataService: DataService ,
     private formBuilder: FormBuilder,
-    private dataService: DataService,
-    @Inject(MAT_DIALOG_DATA) public data: any
-  ) { }
+    public dialogRef: MatDialogRef<DolenciaEditComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
     this.initFormBuilder();
-    this.id = this.data.idDolencia ;
+    this.id = this.data.idDolencia;
     this.loadDataFrom();
   }
 
   initFormBuilder() {
-    this.form = this.formBuilder.group({
+    this.form =  this.formBuilder.group({
       idDolencia: [null],
-      dolencia: [null, Validators.compose([Validators.required])],
-      recomendacion: [null, Validators.compose([Validators.required])]
+      dolencia: [null,  Validators.compose([Validators.required])]
     });
   }
 
-  private loadDataFrom() {
-    if (this.id != null && this.data.idDolencia > 0) {
-      this.dataService.dolencias().findById(this.id).subscribe(data => {
+  private loadDataFrom(){
+    if(this.id != null && this.data.idDolencia > 0){
+      this.dataService.dolencias().findById(this.id).subscribe(data =>{
         this.form.patchValue(data);
       });
     }
   }
+
   save() {
     if (this.id != null && this.data.idDolencia > 0) {
+      //update
       this.dataService.dolencias().update(this.form.value).subscribe(data => {
         this.dataService.dolencias().getAll().subscribe(p => {
           this.dataService.providers().cambio.next(p);
-          this.dataService.providers().mensaje.next('se modifico');
+          this.dataService.providers().mensaje.next('se modifico')
         });
       });
     } else {
+      //insert
       this.dataService.dolencias().create(this.form.value).subscribe(data => {
         this.dataService.dolencias().getAll().subscribe(cuent => {
           this.dataService.providers().cambio.next(cuent);
@@ -59,4 +60,5 @@ export class DolenciaEditComponent implements OnInit {
     }
     this.dialogRef.close();
   }
+
 }

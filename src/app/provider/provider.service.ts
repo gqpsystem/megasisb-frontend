@@ -5,10 +5,10 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class ProviderService {
-
-  cambio = new Subject<any[]>();
+  
+  cambio = new Subject<any[]>();  
   mensaje = new Subject<string>();
-  dialogo = new Subject<any>();
+  dialogo= new Subject<any>();
   perfilCambio = new Subject<any>();
   usuarioCambio = new Subject<any[]>();
 

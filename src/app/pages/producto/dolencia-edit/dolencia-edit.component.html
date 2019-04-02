@@ -1,17 +1,13 @@
-<h2 mat-dialog-title>Registrar dolencia</h2>
-<mat-dialog-content class="mat-typography">
+<h2 mat-dialog-title>Registrar Dolencia</h2>
+<mat-dialog-content class="mat-typography"  align="center">
   <form class="container" [formGroup]="form" #f="ngForm">
       <mat-form-field appearance="outline">
-        <mat-label>dolencia</mat-label>
-        <input matInput placeholder="Dolencia" required formControlName="dolencia">
+        <mat-label>Dolencia</mat-label>
+        <input matInput placeholder="dolencia" required formControlName="dolencia">
       </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Recomendacion</mat-label>
-          <input matInput placeholder="Recomendacion" required formControlName="recomendacion">
-        </mat-form-field>
   </form>
 </mat-dialog-content>
-<mat-dialog-actions align="end">
+<mat-dialog-actions align="center">
   <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
   <button mat-raised-button color="primary"  type="button" (click)="save()" [disabled]="f.invalid">Aceptar</button>
 </mat-dialog-actions>

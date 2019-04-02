@@ -15,7 +15,6 @@
   border-radius: 50%;
 }
 .example-toolbar {
-  border-bottom: 0.5px white groove;
   .option-nav {
     &:hover {
       color: #2ac4ea;
@@ -27,7 +26,7 @@
 }
 .example-sidenav-container {
   flex: 1;
-  background-color: #2f3d4a;
+  background: linear-gradient(white, #9198e5);
   .tittle-divider {
     margin: auto;
     text-align: center;
@@ -36,6 +35,7 @@
     margin-bottom: 10px;
   }
 }
+
 
 .example-spacer {
   flex: 1 1 auto;
@@ -53,12 +53,12 @@
 }
 
 .menu-sinedav {
-  background-color: #2f3d4a;
-  color: #67757c;
+  background: linear-gradient(red, #9198e5);
+  color: white;
 
   .container-sinedav {
     button {
-      color: #67757c;
+      color:white;
       mat-icon {
         color: rgba(0, 0, 0, 0.9);
       }
@@ -69,7 +69,7 @@
           transition: 0.45s;
         }
         transition: 0.45s;
-        background-color: #3e74d3;
+        background-color: #2ac4ea;
         color: white;
       }
       &:focus-within{
@@ -78,7 +78,7 @@
           transition: 0.45s;
         }
         transition: 0.45s;
-        background-color: #3e74d3;
+        background-color: #2ac4ea;
         color: white;
       }
 

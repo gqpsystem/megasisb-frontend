@@ -1,0 +1,155 @@
+<mat-dialog-content
+  fxFlex="100%"
+  fxLayout="row wrap"
+  fxLayoutAlign="space-between start"
+>
+  <form
+    [formGroup]="form"
+    #f="ngForm"
+    fxFlex="100%"
+    fxLayout="row wrap"
+    fxLayoutAlign="space-between start"
+  >
+    <div
+      fxFlex="100%"
+      fxLayout="row wrap"
+      formGroupName="personal"
+      fxLayoutAlign="space-between start"
+    >
+      <div fxFlex="70%" fxFlex.xs="100%" fxLayout="column wrap">
+        <span fxFlex="100%" style="margin-bottom: 10px"
+          >Registro de Personal</span
+        >
+        <mat-form-field fxFlex="100%" appearance="outline">
+          <mat-label>Email</mat-label>
+          <input
+            formControlName="email"
+            type="email"
+            matInput
+            required
+            placeholder="anonimo@hotmail.com"
+          />
+          <span matSuffix> <mat-icon> person </mat-icon> </span>
+        </mat-form-field>
+        <mat-form-field fxFlex="100%">
+          <mat-label>Sueldo</mat-label>
+          <input
+            type="number"
+            formControlName="sueldo"
+            matInput
+            placeholder="sueldo"
+          />
+          <span matPrefix>$&nbsp;</span>
+        </mat-form-field>
+      </div>
+      <div fxFlex="20%" fxFlex.xs="100%" fxLayout="column">
+        <span fxFlex="100%" fxLayoutAlign="center start">Foto</span>
+        <input
+          type="file"
+          fxFlex="0"
+          name="image"
+          style="opacity: 0;visibility: hidden;"
+          id="image"
+          (change)="changeImg($event)"
+        />
+        <span fxFlex="100%" for="" fxLayoutAlign="center start">
+          <label for="image" class="input-image" style=" cursor: pointer">
+            <img
+              style="border-radius: 50%"
+              [src]="imageDefault"
+              height="120px"
+            />
+          </label>
+        </span>
+      </div>
+      <mat-form-field appearance="outline" fxFlex="45%" fxFlex.xs="100%">
+        <mat-label>Fecha de Ingreso</mat-label>
+        <input
+          matInput
+          formControlName="fechaIngreso"
+          [matDatepicker]="picker1"
+          placeholder="dd-mm-aaaa"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="picker1"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" fxFlex="45%" fxFlex.xs="100%">
+        <mat-label>Fecha de Nacimiento</mat-label>
+        <input
+          matInput
+          formControlName="fechaNacimiento"
+          [matDatepicker]="picker2"
+          placeholder="dd-mm-aaaa"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="picker2"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div
+      fxFlex="100%"
+      fxLayout="row wrap"
+      formGroupName="persona"
+      fxLayoutAlign="space-between start"
+    >
+      <mat-form-field fxFlex="45%" appearance="outline" fxFlex.xs="100%">
+        <mat-label>Nombre</mat-label>
+        <input matInput formControlName="nombre" placeholder="nombre" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" fxFlex="45%" fxFlex.xs="100%">
+        <mat-label>Apellido</mat-label>
+        <input formControlName="apellido" matInput placeholder="apellido" />
+      </mat-form-field>
+
+      <mat-form-field fxFlex="45%" appearance="outline" fxFlex.xs="100%">
+        <mat-label>Direccion/Domicilio</mat-label>
+        <input
+          matInput
+          formControlName="direccion"
+          placeholder="direccion/domicilio"
+        />
+        <span matSuffix> <mat-icon> home </mat-icon> </span>
+      </mat-form-field>
+      <mat-form-field appearance="outline" fxFlex="45%" fxFlex.xs="100%">
+        <mat-label>Telefono</mat-label>
+        <input formControlName="telefono" matInput placeholder="telefono" />
+        <span matSuffix> <mat-icon> call </mat-icon> </span>
+      </mat-form-field>
+
+      <mat-form-field fxFlex="65%" appearance="outline" fxFlex.xs="100%">
+        <mat-label>Numero de Documento</mat-label>
+        <input
+          formControlName="numDocumento"
+          matInput
+          placeholder="documento"
+        />
+      </mat-form-field>
+      <mat-form-field appearance="outline"  fxFlex="25%" fxFlex.xs="100%">
+        <mat-select placeholder="Unidad de Medida" formControlName="tipoDocumento" [compareWith]="compareDocumento"   >
+          <mat-option *ngFor="let documento of documentos"  [value]="documento">
+            {{documento.abreviatura}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </form>
+
+  <mat-dialog-actions fxFlex="100%" fxLayoutAlign="center start">
+    <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+    <button
+      mat-raised-button
+      color="primary"
+      type="button"
+      (click)="save()"
+      [disabled]="f.invalid"
+    >
+      Aceptar
+    </button>
+  </mat-dialog-actions>
+</mat-dialog-content>

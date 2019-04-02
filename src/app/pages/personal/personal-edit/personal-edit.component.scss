@@ -1,0 +1,10 @@
+.input-image{
+  cursor: pointer;
+  &:hover{
+
+    img{
+
+      opacity: 0.8;
+    }
+  }
+}

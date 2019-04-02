@@ -1,0 +1,44 @@
+<div class="page-layout blank p-24" megaPerfectScrollbar >
+  <mat-toolbar color="primary" style="border-radius: 5px 5px 0px 0px">
+    <span   *ngIf="searchMode!=='close'" >LISTA DE Producto</span>
+    <input *ngIf="searchMode==='close'" matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar Unidad....">
+
+    <span style="flex: 1 1 auto;" ></span>
+    <button mat-button (click)="changeSeacch()" color="basic" >
+        <mat-icon >{{searchMode}}</mat-icon>
+    </button>
+
+  </mat-toolbar>
+
+  <div class="mat-elevation-z8">
+    <mat-table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="observacion">
+          <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="15%"> Observacion</mat-header-cell>
+          <mat-cell fxFlex="10%" *matCellDef="let element" > {{element.observacion}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="nombre">
+          <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="15%"> Nombre</mat-header-cell>
+          <mat-cell fxFlex="10%" *matCellDef="let element" > {{element.persona.nombre}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="acciones">
+        <mat-header-cell *matHeaderCellDef fxFlex="10%">ACCIONES</mat-header-cell>
+        <mat-cell fxFlex="10%" *matCellDef="let row" >
+          <button mat-icon-button matTooltip="Editar" color="primary" (click)="openDialog(row)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button matTooltip="Eliminar" color="accent" (click)="eliminar(row.idUnidadmedida)" >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayColumn"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayColumn;" class="fila"></mat-row>
+    </mat-table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" ></mat-paginator>
+  </div>
+
+  <button mat-fab color="accent" style="float:right" (click)="openDialog()">
+    <mat-icon>create</mat-icon>
+  </button>
+</div>

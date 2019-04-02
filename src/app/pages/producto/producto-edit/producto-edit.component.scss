@@ -1,0 +1,11 @@
+.image-producto {
+  img{
+    border: 1px inset black ;
+    cursor: pointer;
+    height: 200px;
+    &:hover{
+      opacity: 0.6;
+    }
+  }
+
+}

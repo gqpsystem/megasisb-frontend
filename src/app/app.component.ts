@@ -31,8 +31,8 @@ export class AppComponent {
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-  changeSeacch(){
-    
+
+  changeSeacch() {
     if(this.searchMode === 'create') {
       this.searchMode = 'close' ;
     } else {

@@ -1,0 +1,16 @@
+.jbox-main{
+    .jbox-image{
+      visibility: hidden;
+      opacity: 0;
+      transition: visibility 0.5s , background-color 0.5s , opacity  0.5s ;
+       
+    }
+  &:hover{
+    .jbox-image{
+      opacity: 1;
+      visibility: visible;
+      transition: visibility 1s , background-color 3s , opacity  2s ;
+      background: linear-gradient(red , white);
+    }
+  }
+}
