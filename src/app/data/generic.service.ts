@@ -9,11 +9,11 @@ import { HttpClient } from '@angular/common/http';
 })
 export class GenericService {
 
-  private url: string; 
+  private url: string;
 
   constructor(private _http: HttpClient, private configuration: Configuration) {
-    this.url = configuration.api;    
-  } 
+    this.url = configuration.api;
+  }
 
   get path() {
     return this.url;
@@ -50,10 +50,10 @@ export class GenericService {
   }
 
   put(obj: any): Observable<Response> {
-    /*
+
     const clone = Object.assign({}, obj);
     delete clone['_restangular'];
-    */
+
     return this._http.put(this.url, obj).pipe(
       map((response) => {
         return response as any;

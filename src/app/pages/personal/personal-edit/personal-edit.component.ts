@@ -104,7 +104,7 @@ export class PersonalEditComponent implements OnInit {
     return x && y ? x.idTipoDocumento === y.idTipoDocumento : x === y;
   }
 
-  save() {  
+  save() {
     const rep = (JSON.stringify(this.form.value));
     const formData = new FormData();
     formData.append('file', this.fileUpload);
@@ -132,6 +132,7 @@ export class PersonalEditComponent implements OnInit {
   }
 
   changeImg(event) {
+    console.log(event.target.files.item(0));
     this.fileUpload = event.target.files.item(0);
     const file = event.target.files[0];
     this.userFile = file;

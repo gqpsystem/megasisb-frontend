@@ -17,7 +17,7 @@ export class ProductoEditComponent implements OnInit {
   medidas: any[];
   lstunidadmedidas: any[] = [];
   presentaciones: any[];
-  ImageProducto = 'https://www.genericosdelimpieza.com/wp-content/uploads/2018/04/pastillas-de-cloro.png';
+  ImageProducto = 'http://localhost:8083/api/image/';
   fileUpload: File = null;
   productoFile: File = null;
 
@@ -37,7 +37,28 @@ export class ProductoEditComponent implements OnInit {
     this.listarPresenacion();
     this.id = this.data.idProducto;
     this.loadFormField();
+    this.loadImage();
+  }
 
+  loadImage(){
+    if (this.data.imagen!==undefined) {
+      this.ImageProducto = this.data.imagen;
+    }else{
+      fetch('http://localhost:8083/api/image/').then(response =>
+          response.blob()
+      ).then(blob => {
+        let objectURL = URL.createObjectURL(blob);
+        this.fileUpload = this.comvertoblobtoFile(blob) ;
+
+            })
+    }
+  }
+  public comvertoblobtoFile =  (theblob : Blob):File => {
+    var b: any = theblob;
+    b.lastModifiedDate = new Date();
+    b.name = "Imagen-default";
+
+    return <File>theblob;
   }
 
   initFormBuilder() {
@@ -63,7 +84,6 @@ export class ProductoEditComponent implements OnInit {
 
 
   changeImageProducto(event) {
-
 
     this.fileUpload = event.target.files.item(0);
     const file = event.target.files[0];
@@ -112,7 +132,8 @@ export class ProductoEditComponent implements OnInit {
   loadFormField() {
 
     if (this.id != null && this.data.idProducto > 0) {
-      this.dataService.productos().findById(this.id).subscribe(data => this.form.patchValue(data));
+      this.dataService.productos().findById(this.id).subscribe(dato =>
+        this.form.patchValue(dato));
     }
   }
 
