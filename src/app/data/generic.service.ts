@@ -50,9 +50,11 @@ export class GenericService {
   }
 
   put(obj: any): Observable<Response> {
+    /*
     const clone = Object.assign({}, obj);
     delete clone['_restangular'];
-    return this._http.put(this.url, clone).pipe(
+    */
+    return this._http.put(this.url, obj).pipe(
       map((response) => {
         return response as any;
       }), catchError((res) => { return this.onError(res); }));

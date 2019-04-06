@@ -11,15 +11,15 @@ import { Personal } from 'src/app/model/personal.model';
 })
 export class PersonalEditComponent implements OnInit {
   imageDefault =
-    "https://www.alliedmarketresearch.com/blog/images/user_icon.png";
+    'https://www.alliedmarketresearch.com/blog/images/user_icon.png';
   id: number;
   form: FormGroup;
   formPerson: any = FormGroup;
   fileUpload: File = null;
   persona: any;
-  edicion = false ;
-  documentos: any[] ;
-  public userFile: any = File ;
+  edicion = false;
+  documentos: any[];
+  public userFile: any = File;
 
 
   constructor(
@@ -27,7 +27,7 @@ export class PersonalEditComponent implements OnInit {
     public dialgoRef: MatDialogRef<PersonalEditComponent>,
     private fm: FormBuilder,
     private dataService: DataService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.loadFormBuilder();
@@ -35,20 +35,19 @@ export class PersonalEditComponent implements OnInit {
     this.loadData();
   }
 
-  loadData(){
-    this.edicion = this.data.idPersonal !== undefined ;
+  loadData() {
+    this.edicion = this.data.idPersonal !== undefined;
 
     if (this.edicion) {
-      this.id = this.data.idPersonal ;
+      this.id = this.data.idPersonal;
       this.dataService.personales().findById(this.id).subscribe(data => {
 
         this.form.controls.personal.patchValue({
-          email: data.email ,
-          estado: data.estado ,
-          fechaNacimiento: data.fechaNacimiento ,
+          email: data.email,
+          estado: data.estado,
+          fechaNacimiento: data.fechaNacimiento,
           idPersonal: data.idPersonal,
           fechaIngreso: data.fechaIngreso,
-          foto: data.foto,
           sueldo: parseFloat(data.sueldo || 0)
         });
         this.buildData(data.persona);
@@ -60,18 +59,18 @@ export class PersonalEditComponent implements OnInit {
   buildData(data) {
 
     this.form.controls.persona.patchValue(data);
-  /*
-    const tipoDocumeto = this.tipodocumentos.find(
-      t => t.idTipodocumento == data.tipoDocumeto.idTipodocumento
-    );
-    this.form.controls.persona.get("tipoDocumeto").setValue(tipoDocumeto);
-   */
+    /*
+      const tipoDocumeto = this.tipodocumentos.find(
+        t => t.idTipodocumento == data.tipoDocumeto.idTipodocumento
+      );
+      this.form.controls.persona.get("tipoDocumeto").setValue(tipoDocumeto);
+     */
   }
 
 
-  listarDocumento(){
+  listarDocumento() {
     this.dataService.documentos().getAll().subscribe(data => {
-      this.documentos = data ;
+      this.documentos = data;
     });
   }
   loadFormBuilder() {
@@ -92,39 +91,40 @@ export class PersonalEditComponent implements OnInit {
       personal: this.fm.group({
         idPersonal: [null],
         email: [null, Validators.compose([Validators.required])],
-        estado: "ACTIVO",
+        estado: 'ACTIVO',
         fechaIngreso: [null, Validators.compose([Validators.required])],
         fechaNacimiento: [null, Validators.compose([Validators.required])],
-        foto: this.imageDefault,
+        foto: 'null',
         sueldo: [null, Validators.compose([Validators.required])],
       })
     });
   }
 
-  compareDocumento(x: any , y:any): boolean{
+  compareDocumento(x: any, y: any): boolean {
     return x && y ? x.idTipoDocumento === y.idTipoDocumento : x === y;
   }
 
-  save() {
-
+  save() {  
+    const rep = (JSON.stringify(this.form.value));
+    const formData = new FormData();
+    formData.append('file', this.fileUpload);
+    formData.append('rep', rep);
+    console.log(JSON.stringify(this.form.value));
     if (this.edicion) {
-      //update
-      this.dataService.personales().update(this.form.value).subscribe(data => {
+      // update
+      this.dataService.personales().update(formData).subscribe(data => {
         this.dataService.personales().getAll().subscribe(p => {
           this.dataService.providers().cambio.next(p);
-          this.dataService.providers().mensaje.next("Se Actualizo con éxito!");
+          this.dataService.providers().mensaje.next('Se Actualizo con éxito!');
         });
       });
     } else {
-      const rep =(JSON.stringify(this.form.value));
-      const formData = new FormData();
-      formData.append('file' , this.fileUpload);
-      formData.append('rep' , rep);
+
       this.dataService.personales().create(formData).subscribe(data => {
-          this.dataService.personales().getAll().subscribe(p => {
-            this.dataService.providers().cambio.next(p);
-            this.dataService.providers().mensaje.next('Se Registro con éxito!');
-          });
+        this.dataService.personales().getAll().subscribe(p => {
+          this.dataService.providers().cambio.next(p);
+          this.dataService.providers().mensaje.next('Se Registro con éxito!');
+        });
       });
 
     }
@@ -134,7 +134,7 @@ export class PersonalEditComponent implements OnInit {
   changeImg(event) {
     this.fileUpload = event.target.files.item(0);
     const file = event.target.files[0];
-    this.userFile = file ;
+    this.userFile = file;
     var reader = new FileReader();
     reader.onload = (event: any) => {
       this.imageDefault = event.target.result;

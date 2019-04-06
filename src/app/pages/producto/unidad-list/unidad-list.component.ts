@@ -12,14 +12,14 @@ import { UnidadMedida } from 'src/app/model/unidad.model';
 export class UnidadListComponent implements OnInit {
 
   lista: any[] = [];
-  displayedColumns: string[] = ['idUnidadmedida','codUnidadmedida','descripcion', 'acciones'];
+  displayedColumns: string[] = ['idUnidadmedida', 'codUnidadmedida', 'descripcion', 'acciones'];
   dataSource: MatTableDataSource<any>;
   cantidad: number;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  searchMode = 'search' ;
+  searchMode = 'search';
 
-  constructor(private dataService: DataService, private snackBar: MatSnackBar,public dialog: MatDialog) { }
+  constructor(private dataService: DataService, private snackBar: MatSnackBar, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.dataService.unidadMedidas().getAll().subscribe(data => this.setData(data));
@@ -30,10 +30,10 @@ export class UnidadListComponent implements OnInit {
   }
 
   setData(data) {
-    let r = data;
+    const r = data;
     this.cantidad = JSON.parse(JSON.stringify(data)).length;
     this.dataSource = new MatTableDataSource(r);
-    this.dataSource.paginator=this.paginator;
+    this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
 
@@ -43,8 +43,8 @@ export class UnidadListComponent implements OnInit {
     this.dataSource.filter = filterValue;
   }
 
-  openDialog(unid:any): void {
-    let unidad = unid != null ? unid:new UnidadMedida();
+  openDialog(unid: any): void {
+    const unidad = unid != null ? unid : new UnidadMedida();
     const dialogRef = this.dialog.open(UnidadEditComponent, {
       data: unidad
     });
@@ -54,10 +54,10 @@ export class UnidadListComponent implements OnInit {
   }
 
   changeSeacch() {
-    if(this.searchMode === 'search') {
-      this.searchMode = 'close' ;
+    if (this.searchMode === 'search') {
+      this.searchMode = 'close';
     } else {
-      this.searchMode = 'search' ;
+      this.searchMode = 'search';
     }
   }
 

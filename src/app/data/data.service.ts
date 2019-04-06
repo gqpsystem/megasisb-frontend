@@ -34,12 +34,12 @@ export class DataService {
     return this.provider;
   }
 
-  unidadMedidas(): UnidadService{
+  unidadMedidas(): UnidadService {
     return this.unidad;
   }
 
   presentaciones(): PresentacionService {
-    return this.presentacion ;
+    return this.presentacion;
   }
 
   dolencias(): DolenciaService {
@@ -47,11 +47,11 @@ export class DataService {
   }
 
   categorias(): CategoriaService {
-    return this.categoria ;
+    return this.categoria;
   }
 
   productos(): ProductoService {
-    return this.producto ;
+    return this.producto;
   }
 
   personas(): PersonaService {
@@ -63,11 +63,11 @@ export class DataService {
   }
 
   documentos(): DocumentoService {
-    return this.documento ;
+    return this.documento;
   }
 
   clientes(): ClienteService {
-    return this.cliente ;
+    return this.cliente;
   }
 
   proveedores(): ProveedorService {
