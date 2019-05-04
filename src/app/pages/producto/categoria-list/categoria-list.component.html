@@ -10,25 +10,22 @@
 
   </mat-toolbar>
 
-  <div class="mat-elevation-z8">
-    <mat-table [dataSource]="dataSource" matSort>
-      <ng-container matColumnDef="idCategoria">
-        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="15%"> ID </mat-header-cell>
-        <mat-cell fxFlex="15%" *matCellDef="let element"> {{element.idCategoria}} </mat-cell>
-      </ng-container>
+  <div class="mat-elevation-z8" style="background: white">
+    <mat-table [dataSource]="dataSource" matSort >
+      
       <ng-container matColumnDef="categoria">
-        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="13%"> COD. UNIDAD </mat-header-cell>
-        <mat-cell fxFlex="13%" *matCellDef="let element" > {{element.categoria}} </mat-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex > COD. UNIDAD </mat-header-cell>
+        <mat-cell fxFlex *matCellDef="let element" > {{element.categoria}} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="estado">
-        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="20%"> DESCRIPCION</mat-header-cell>
-        <mat-cell fxFlex="20%" *matCellDef="let element"> {{element.estado}} </mat-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex> DESCRIPCION</mat-header-cell>
+        <mat-cell fxFlex *matCellDef="let element"> {{element.estado}} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="acciones">
-        <mat-header-cell *matHeaderCellDef fxFlex="25%">ACCIONES</mat-header-cell>
-        <mat-cell fxFlex="25%" *matCellDef="let row" >
+        <mat-header-cell *matHeaderCellDef fxFlex="10%">ACCIONES</mat-header-cell>
+        <mat-cell fxFlex="10%" *matCellDef="let row" >
           <button mat-icon-button matTooltip="Editar" color="primary" (click)="openDialog(row)">
             <mat-icon>edit</mat-icon>
           </button>
@@ -38,7 +35,7 @@
         </mat-cell>
       </ng-container>
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;" class="fila"></mat-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="row.idCategoria == SelectFocus ? 'focusSelect fila': 'fila'"   (click)="selectRow(row)" ></mat-row>
     </mat-table>
     <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" ></mat-paginator>
   </div>

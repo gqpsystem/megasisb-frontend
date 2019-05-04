@@ -46,7 +46,7 @@
           <div   fxFlex="25%" fxFlex.xs="100%" appearance="outline"  >
             <span>Imagen del producto:</span>
             <br>
-            <input type="file" style="visibility: hidden; opacity: 0;" (change)="changeImageProducto($event)" name="image" id="image">
+            <input type="file" accept="image/png, image/jpeg" style="visibility: hidden; opacity: 0;" (change)="changeImageProducto($event)" name="image" id="image">
             <br>
             <label class="image-producto" for="image">
               <img [src]="ImageProducto" fxFlex="100%" alt="imagen del producto">
@@ -99,13 +99,6 @@
           </mat-select>
         </mat-form-field>
 
-        <mat-form-field appearance="outline"  fxFlex="100%" fxFlex.xs="100%">
-          <mat-select placeholder="Presentaciones"  [compareWith]="comparePresentacion"  formControlName="presentacion" >
-            <mat-option *ngFor="let presentacion of presentaciones"  [value]="presentacion">
-              {{presentacion.presentacion}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
 
         <mat-dialog-actions fxFlex="100%" align="center">
           <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>

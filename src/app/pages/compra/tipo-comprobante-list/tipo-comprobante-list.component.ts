@@ -1,18 +1,18 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatPaginator, MatSort, MatSnackBar, MatDialog } from '@angular/material';
-import { DataService } from 'src/app/data/data.service';
-import { UnidadEditComponent } from '../unidad-edit/unidad-edit.component';
-import { UnidadMedida } from 'src/app/model/unidad.model';
+import { MatTableDataSource, MatPaginator, MatSort, MatDialog, MatSnackBar } from '@angular/material';
+import { DataService } from '../../../data/data.service';
+import { TipoComprobanteEditComponent } from '../tipo-comprobante-edit/tipo-comprobante-edit.component';
+import { TipoComprobante } from '../../../model/tipo-comprobante.model';
 
 @Component({
-  selector: 'app-unidad-list',
-  templateUrl: './unidad-list.component.html',
-  styleUrls: ['./unidad-list.component.scss']
+  selector: 'app-tipo-comprobante-list',
+  templateUrl: './tipo-comprobante-list.component.html',
+  styleUrls: ['./tipo-comprobante-list.component.scss']
 })
-export class UnidadListComponent implements OnInit {
+export class TipoComprobanteListComponent implements OnInit {
 
   lista: any[] = [];
-  displayedColumns: string[] = ['idUnidadmedida', 'codUnidadmedida', 'descripcion', 'acciones'];
+  displayedColumns: string[] = ['descripcion' , 'acciones'];
   dataSource: MatTableDataSource<any>;
   cantidad: number;
   SelectFocus: string;
@@ -23,7 +23,7 @@ export class UnidadListComponent implements OnInit {
   constructor(private dataService: DataService, private snackBar: MatSnackBar, public dialog: MatDialog) { }
 
   ngOnInit() {
-    this.dataService.unidadMedidas().getAll().subscribe(data => this.setData(data));
+    this.dataService.tipoComprobantes().getAll().subscribe(data => this.setData(data));
     this.dataService.providers().cambio.subscribe(data => this.setData(data));
     this.dataService.providers().mensaje.subscribe(data => {
       this.snackBar.open(data, 'Mensaje', { duration: 3000 });
@@ -31,7 +31,7 @@ export class UnidadListComponent implements OnInit {
   }
 
   selectRow(event) {
-    this.SelectFocus = event.idUnidadmedida;
+    this.SelectFocus = event.idTipoComprobante;
 
   }
 
@@ -49,10 +49,10 @@ export class UnidadListComponent implements OnInit {
     this.dataSource.filter = filterValue;
   }
 
-  openDialog(unid: any): void {
-    const unidad = unid != null ? unid : new UnidadMedida();
-    const dialogRef = this.dialog.open(UnidadEditComponent, {
-      data: unidad
+  openDialog(documento: any): void {
+    const tipoDocumento = documento != null ? documento : new TipoComprobante();
+    const dialogRef = this.dialog.open(TipoComprobanteEditComponent, {
+      data: tipoDocumento
     });
     dialogRef.afterClosed().subscribe(result => {
 

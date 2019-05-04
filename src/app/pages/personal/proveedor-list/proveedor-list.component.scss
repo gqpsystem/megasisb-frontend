@@ -1,0 +1,23 @@
+.fila{
+    cursor: pointer;
+    
+    &:hover   {
+      background: var(--ColorHover) 
+    }
+  
+  }
+  
+  .focusSelect{
+    background: var(--ColorFocus);
+  }
+  .defaulRow {
+    background: var(--ColorFocus);
+  }
+  
+.configuration-producto {
+  margin: 10px;
+
+  mat-checkbox {
+    margin: 10px;
+  }
+}

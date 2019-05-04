@@ -1,0 +1,57 @@
+<mat-toolbar>Lista de productos</mat-toolbar> 
+<mat-dialog-content class="mat-typography">
+  <div fxLayout="row" fxLayout.xs="column">
+    <mat-form-field fxFlex="40%" appearance="outline">
+      <mat-label>Buscar Producto</mat-label>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar Producto">
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+  </div>
+  
+  <mat-table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="codProducto">
+      <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="20%" fxFlex.xs="100%"> CODIGO </mat-header-cell>
+      <mat-cell fxFlex="20%" fxFlex.xs="100%" *matCellDef="let element"> {{element.codigo}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="nombre">
+      <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="32%" fxFlex.xs="100%"> PRODUCTO </mat-header-cell>
+      <mat-cell fxFlex="32%" fxFlex.xs="100%" *matCellDef="let element"> {{element.numProducto}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="marcaProducto">
+      <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="18%" fxFlex.xs="100%"> MARCA </mat-header-cell>
+      <mat-cell fxFlex="18%" fxFlex.xs="100%" *matCellDef="let element"> {{element.marcaProducto}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="cantidaditem">
+      <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="10%" fxFlex.xs="100%">CANTIDAD</mat-header-cell>
+      <mat-cell fxFlex="10%" fxFlex.xs="100%" *matCellDef="let element; let i = index">
+        <input matInput name="cantidaditem" [(ngModel)]="element.cantidaditem">          
+      </mat-cell>
+    </ng-container>   
+
+    <ng-container matColumnDef="precioCompra">
+      <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="10%" fxFlex.xs="100%">PRECIO DE COMPRA </mat-header-cell>
+      <mat-cell fxFlex="10%" fxFlex.xs="100%" *matCellDef="let element; let i = index">
+        <input matInput name="precioCompra" [(ngModel)]="element.precioCompra">          
+      </mat-cell>
+    </ng-container>   
+         
+    <ng-container matColumnDef="acciones">
+      <mat-header-cell *matHeaderCellDef fxFlex="10%" fxFlex.xs="100%">ACCIONES</mat-header-cell>
+      <mat-cell fxFlex="10%" fxFlex.xs="100%" *matCellDef="let row">
+        <button mat-icon-button matTooltip="Agregar" color="primary" (click)="agregar(row)">
+          <mat-icon >add_shopping_cart</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</mat-dialog-content> 
+
+<mat-dialog-actions align="end">
+  <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+</mat-dialog-actions>

@@ -1,42 +1,83 @@
-<div class="page-layout blank p-24" megaPerfectScrollbar >
-  <mat-toolbar color="primary" style="border-radius: 5px 5px 0px 0px">
-    <span   *ngIf="searchMode!=='close'" >LISTA DE Producto</span>
-    <input *ngIf="searchMode==='close'" matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar Unidad....">
+<div class="page-layout blank p-24" megaPerfectScrollbar fxLayout="row wrap" >
+  <mat-toolbar color="primary" style="border-radius: 5px 5px 0px 0px" fxFlex="100%"  >
+    <span   *ngIf="searchMode !=='search' && searchMode !=='view_module'  " >LISTA DE PRODUCTO</span>
+    <span *ngIf="searchMode==='view_module' "  > ELIGA LA OPCION QUE QUIERA VER</span>
+    <input *ngIf="searchMode==='search' " matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar Unidad....">
 
     <span style="flex: 1 1 auto;" ></span>
-    <button mat-button (click)="changeSeacch()" color="basic" >
-        <mat-icon >{{searchMode}}</mat-icon>
+    <button mat-button (click)="changeSeacch('search')" *ngIf="searchMode ==='open' || searchMode ==='search' "  color="basic" >
+        <mat-icon *ngIf="searchMode==='open' " >search</mat-icon>
+        <mat-icon *ngIf="searchMode==='search' " >close</mat-icon>
     </button>
-
+    <button mat-button (click)="changeSeacch('view_module')" *ngIf="searchMode==='open' || searchMode ==='view_module'"  color="basic" >
+        <mat-icon *ngIf="searchMode==='open'" >view_module</mat-icon>
+        <mat-icon *ngIf="searchMode ==='view_module' " >close</mat-icon>
+    </button>
+    
   </mat-toolbar>
+  <div fxFlex="100%" style=" background-color: white;"  *ngIf="searchMode==='view_module' "  >
+    <div fxFlex="100%" style="margin: 10px" class="configuration-producto" >
+      
+      <section class="example-section" fxLayout="row wrap"  fxLayoutAlign="space-around  start"  >
+        <!-- 13 elementos -->
+        <div fxFlex="100%"  fxLayoutAlign="space-between  start"  fxLayout="column" *ngFor="let option of displayOption"  >
+ 
+            <mat-checkbox (change)="selectColumn(option.position)" [(ngModel)]="option.state"  >{{option.description}}</mat-checkbox>
+ 
 
-  <div class="mat-elevation-z8">
+        </div>
+      </section>
+    </div >
+  </div>
+  <div class="mat-elevation-z8" fxFlex="100%"  >
     <mat-table [dataSource]="dataSource" matSort>
       <ng-container matColumnDef="nombre">
-          <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="15%"> Nombre</mat-header-cell>
-          <mat-cell fxFlex="10%" *matCellDef="let element" >  </mat-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex > Nombre</mat-header-cell>
+          <mat-cell fxFlex  *matCellDef="let element" > {{element.persona.nombre}} </mat-cell>
       </ng-container>
       <ng-container matColumnDef="foto">
-        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="15%"> Foto</mat-header-cell>
-        <mat-cell fxFlex="10%" *matCellDef="let element ; let i= index" > <img src="{{element.foto}}" alt="foto de perfil" style="border-radius:50% ; height: 45px" >  </mat-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex > Foto</mat-header-cell>
+        <mat-cell fxFlex  *matCellDef="let element ; let i= index" > <img src="http://localhost:8083/api/image/perfil/{{element.foto}}" alt="foto de perfil" style="border-radius:50% ; height: 45px" >  </mat-cell>
       </ng-container>
       <ng-container matColumnDef="documento">
-        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="15%"> Documento</mat-header-cell>
-        <mat-cell fxFlex="10%" *matCellDef="let element" > {{element.persona.numDocumento}}</mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="email">
-        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="15%"> Email</mat-header-cell>
-        <mat-cell fxFlex="10%" *matCellDef="let element" > {{element.email}}</mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="fechaIngreso">
-        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="15%"> Fecha de Ingreso</mat-header-cell>
-        <mat-cell fxFlex="10%" *matCellDef="let element" > {{element.fechaIngreso}}</mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="fehaNacimiento">
-        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="15%"> Fecha de Nacimiento</mat-header-cell>
-        <mat-cell fxFlex="10%" *matCellDef="let element" > {{element.fechaNacimiento}}</mat-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex > Documento</mat-header-cell>
+        <mat-cell fxFlex *matCellDef="let element" > {{element.persona.numDocumento}}</mat-cell>
       </ng-container>
 
+      <ng-container matColumnDef="tipoDocumento">
+        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex > Tipo de Documento</mat-header-cell>
+        <mat-cell fxFlex *matCellDef="let element" > {{element.persona.tipoDocumento.abreviatura}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex > Email</mat-header-cell>
+        <mat-cell fxFlex  *matCellDef="let element" > {{element.email}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="fechaIngreso">
+        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex > Fecha de Ingreso</mat-header-cell>
+        <mat-cell fxFlex  *matCellDef="let element" > {{element.fechaIngreso}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="fechaNacimiento">
+        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex > Fecha de Nacimiento</mat-header-cell>
+        <mat-cell fxFlex  *matCellDef="let element" > {{element.fechaNacimiento}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="apellido">
+        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex > Apellido</mat-header-cell>
+        <mat-cell fxFlex  *matCellDef="let element" > {{element.persona.apellido}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="direccion">
+        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex > Direccion</mat-header-cell>
+        <mat-cell fxFlex  *matCellDef="let element" > {{element.persona.direccion}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="telefono">
+        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex > Telefono</mat-header-cell>
+        <mat-cell fxFlex  *matCellDef="let element" > {{element.persona.telefono}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="sueldo">
+        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex > Sueldo</mat-header-cell>
+        <mat-cell fxFlex  *matCellDef="let element" > {{element.sueldo}}</mat-cell>
+      </ng-container>
+    
       <ng-container matColumnDef="acciones">
         <mat-header-cell *matHeaderCellDef fxFlex="10%">ACCIONES</mat-header-cell>
         <mat-cell fxFlex="10%" *matCellDef="let row" >
@@ -48,12 +89,9 @@
           </button>
         </mat-cell>
       </ng-container>
-      <ng-container matColumnDef="dolor">
-          <mat-header-cell *matHeaderCellDef mat-sort-header > Dolor de cabeza</mat-header-cell>
-          <mat-cell  *matCellDef="let element" > {{element.dolencia.dolencia}} </mat-cell>
-      </ng-container>
+      
       <mat-header-row *matHeaderRowDef="displayColumn"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayColumn;" class="fila"></mat-row>
+      <mat-row *matRowDef="let row; columns: displayColumn;"  [ngClass]="row.idPersonal == SelectFocus ? 'focusSelect fila': 'fila'"   (click)="selectRow(row)" ></mat-row>
     </mat-table>
     <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" ></mat-paginator>
   </div>

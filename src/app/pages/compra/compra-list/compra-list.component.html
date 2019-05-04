@@ -1,6 +1,6 @@
 <div class="page-layout blank p-24" megaPerfectScrollbar >
     <mat-toolbar color="primary" style="border-radius: 5px 5px 0px 0px">
-      <span   *ngIf="searchMode!=='close'" >LISTA DE UNIDAD</span>
+      <span   *ngIf="searchMode!=='close'" >LISTA DE COMPRA</span>
       <input *ngIf="searchMode==='close'" matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar Unidad....">
 
       <span style="flex: 1 1 auto;" ></span>
@@ -12,20 +12,6 @@
 
     <div class="mat-elevation-z8">
       <mat-table [dataSource]="dataSource" matSort>
-        <ng-container matColumnDef="idUnidadmedida">
-          <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex> ID </mat-header-cell>
-          <mat-cell fxFlex *matCellDef="let element"> {{element.idUnidadmedida}} </mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="codUnidadmedida">
-          <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex> COD. UNIDAD </mat-header-cell>
-          <mat-cell fxFlex *matCellDef="let element" > {{element.codUnidadmedida}} </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="descripcion">
-          <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex> DESCRIPCION</mat-header-cell>
-          <mat-cell fxFlex *matCellDef="let element"> {{element.descripcion}} </mat-cell>
-        </ng-container>
-
         <ng-container matColumnDef="acciones">
           <mat-header-cell *matHeaderCellDef fxFlex="10%">ACCIONES</mat-header-cell>
           <mat-cell fxFlex="10%" *matCellDef="let row" >
@@ -38,11 +24,10 @@
           </mat-cell>
         </ng-container>
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="row.idUnidadmedida == SelectFocus ? 'focusSelect fila': 'fila'"   (click)="selectRow(row)" ></mat-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="row.idCompra == SelectFocus ? 'focusSelect fila': 'fila'"   (click)="selectRow(row)" ></mat-row>
       </mat-table>
       <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" ></mat-paginator>
     </div>
-
     <button mat-fab color="accent" style="float:right" (click)="openDialog()">
       <mat-icon>create</mat-icon>
     </button>

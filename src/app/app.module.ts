@@ -11,8 +11,6 @@ import { UnidadEditComponent } from './pages/producto/unidad-edit/unidad-edit.co
 import { Configuration } from './config/mega.config';
 import { ServerErrorsInterceptor } from './config/server-errors.interceptor';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
-import { PresentacionListComponent } from './pages/producto/presentacion-list/presentacion-list.component';
-import { PresentacionEditComponent } from './pages/producto/presentacion-edit/presentacion-edit.component';
 import { CategoriaEditComponent } from './pages/producto/categoria-edit/categoria-edit.component';
 import { CategoriaListComponent } from './pages/producto/categoria-list/categoria-list.component';
 import { ProductoEditComponent } from './pages/producto/producto-edit/producto-edit.component';
@@ -28,14 +26,17 @@ import { DocumentoEditComponent } from './pages/personal/documento-edit/document
 import { ClienteEditComponent } from './pages/personal/cliente-edit/cliente-edit.component';
 import { ProveedorListComponent } from './pages/personal/proveedor-list/proveedor-list.component';
 import { ProveedorEditComponent } from './pages/personal/proveedor-edit/proveedor-edit.component';
+import { CompraListComponent } from './pages/compra/compra-list/compra-list.component';
+import { CompraEditComponent } from './pages/compra/compra-edit/compra-edit.component';
+import { ProductoDialogoComponent } from './pages/compra/producto-dialogo/producto-dialogo.component';
+import { TipoComprobanteListComponent } from './pages/compra/tipo-comprobante-list/tipo-comprobante-list.component';
+import { TipoComprobanteEditComponent } from './pages/compra/tipo-comprobante-edit/tipo-comprobante-edit.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     UnidadListComponent,
     UnidadEditComponent,
-    PresentacionListComponent,
-    PresentacionEditComponent,
     CategoriaEditComponent,
     CategoriaListComponent,
     ProductoEditComponent,
@@ -49,18 +50,24 @@ import { ProveedorEditComponent } from './pages/personal/proveedor-edit/proveedo
     DocumentoEditComponent,
     ClienteEditComponent,
     ProveedorListComponent,
-    ProveedorEditComponent
+    ProveedorEditComponent,
+    CompraListComponent,
+    CompraEditComponent,
+    ProductoDialogoComponent,
+    TipoComprobanteListComponent,
+    TipoComprobanteEditComponent
   ],
   entryComponents: [
     UnidadEditComponent,
-    PresentacionEditComponent,
     CategoriaEditComponent,
     ProductoEditComponent,
     DolenciaEditComponent,
     PersonalEditComponent,
     DocumentoEditComponent,
     ClienteEditComponent,
-    ProveedorEditComponent
+    ProveedorEditComponent,
+    ProductoDialogoComponent,
+    TipoComprobanteEditComponent
     ],
   imports: [
     BrowserModule,

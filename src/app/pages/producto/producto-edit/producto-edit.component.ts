@@ -17,7 +17,7 @@ export class ProductoEditComponent implements OnInit {
   medidas: any[];
   lstunidadmedidas: any[] = [];
   presentaciones: any[];
-  ImageProducto = 'http://localhost:8083/api/image/';
+  ImageProducto = 'http://localhost:8083/api/image/producto/defaul-photo.jpg';
   fileUpload: File = null;
   productoFile: File = null;
 
@@ -34,31 +34,23 @@ export class ProductoEditComponent implements OnInit {
     this.listarMedida();
     this.listarCategoria();
     this.initFormBuilder();
-    this.listarPresenacion();
     this.id = this.data.idProducto;
     this.loadFormField();
     this.loadImage();
   }
 
-  loadImage(){
-    if (this.data.imagen!==undefined) {
-      this.ImageProducto = this.data.imagen;
-    }else{
-      fetch('http://localhost:8083/api/image/').then(response =>
-          response.blob()
+  loadImage() {
+    if (this.data.imagen !== undefined) {
+      this.ImageProducto = 'http://localhost:8083/api/image/producto/' + this.data.imagen;
+    } else {
+      fetch('http://localhost:8083/api/image/producto/defaul-photo.jpg').then(response =>
+        response.blob()
       ).then(blob => {
-        let objectURL = URL.createObjectURL(blob);
-        this.fileUpload = this.comvertoblobtoFile(blob) ;
 
-            })
+        const fil = new File([blob], 'PhotoDefault.png', { type: 'image/png', lastModified: Date.now() });
+        this.fileUpload = fil;
+      });
     }
-  }
-  public comvertoblobtoFile =  (theblob : Blob):File => {
-    var b: any = theblob;
-    b.lastModifiedDate = new Date();
-    b.name = "Imagen-default";
-
-    return <File>theblob;
   }
 
   initFormBuilder() {
@@ -78,7 +70,7 @@ export class ProductoEditComponent implements OnInit {
       categoria: [null, Validators.compose([Validators.required])],
       unidadMedida: [null, Validators.compose([Validators.required])],
       dolencia: [null, Validators.compose([Validators.required])],
-      presentacion: [null, Validators.compose([Validators.required])],
+      imagen: [null, Validators.compose([])]
     });
   }
 
@@ -121,9 +113,6 @@ export class ProductoEditComponent implements OnInit {
     return x && y ? x.idCategoria === y.idCategoria : x === y;
   }
 
-  listarPresenacion() {
-    this.dataService.presentaciones().getAll().subscribe(data => this.presentaciones = data);
-  }
 
   comparePresentacion(x: any, y: any): boolean {
     return x && y ? x.idPresentacion === y.idPresentacion : x === y;
@@ -132,8 +121,11 @@ export class ProductoEditComponent implements OnInit {
   loadFormField() {
 
     if (this.id != null && this.data.idProducto > 0) {
-      this.dataService.productos().findById(this.id).subscribe(dato =>
-        this.form.patchValue(dato));
+      this.dataService.productos().findById(this.id).subscribe(dato => {
+        this.form.patchValue(dato);
+        console.log(this.form.value);
+
+      });
     }
   }
 
@@ -143,7 +135,7 @@ export class ProductoEditComponent implements OnInit {
 
     formData.append('file', this.fileUpload);
     formData.append('product', producto);
-
+ 
     if (this.id != null && this.data.idProducto > 0) {
       this.dataService.productos().update(formData).subscribe(data => {
         this.dataService.productos().getAll().subscribe(p => {

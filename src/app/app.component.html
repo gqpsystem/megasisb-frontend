@@ -1,87 +1,121 @@
+<div class="example-container">
+  <mat-toolbar color="accent" style="color:white" class="example-toolbar">
+    <button class="option-nav" *ngIf="searchMode!=='close'" mat-icon-button (click)="sidenav.toggle()"
+      style="color:white">
+      <mat-icon *ngIf="!sidenav.opened">menu</mat-icon>
+      <mat-icon *ngIf="sidenav.opened">close</mat-icon>
+    </button>
 
+    <h1 class="example-app-name option-nav"> Megasis</h1>
+    <mat-form-field *ngIf="searchMode==='close'"
+      style="width:100% ; color : #2ac4ea ;font-size: 14px ; margin-left: 10px">
+      <input style="font-size: 14px ;  " matInput placeholder="buscar..">
+    </mat-form-field>
 
-<div class="example-container" >
-    <mat-toolbar  color="accent" style="color:white"  class="example-toolbar">
-            <button class="option-nav" *ngIf="searchMode!=='close'" mat-icon-button (click)="sidenav.toggle()" style="color:white" >
-                <mat-icon *ngIf="!sidenav.opened">menu</mat-icon>
-                <mat-icon *ngIf="sidenav.opened">close</mat-icon>
-            </button>
-
-            <h1 class="example-app-name option-nav"  > Megasis</h1>
-            <mat-form-field  *ngIf="searchMode==='close'" style="width:100% ; color : #2ac4ea ;font-size: 14px ; margin-left: 10px"   >
-                <input   style="font-size: 14px ;  " matInput placeholder="buscar..">
-            </mat-form-field>
-
-            <span class="example-spacer"></span>
-            <div class="sinedav option-nav"  *ngIf="searchMode!=='close'">
-                <button mat-icon-button title="ultima ventas" >
-                  <mat-icon aria-label="label">list</mat-icon>
-                </button>
-            </div>
-            <button class="option-nav" mat-icon-button title="buscar"   (click)="changeSeacch() " >
-                <mat-icon>{{searchMode}}</mat-icon>
-            </button>
-            <button  *ngIf="searchMode!=='close'" class="option-nav" mat-icon-button [matMenuTriggerFor]="menu">
-                <mat-icon>more_vert</mat-icon>
-            </button>
-
-            <mat-menu #menu="matMenu"    >
-                <button mat-menu-item [matMenuTriggerFor]="roles" routerLink="/perfil" >
-                    <mat-icon>account_box</mat-icon>
-                    <span *ngIf="userName">{{userName | uppercase }}</span>
-                    <span *ngIf="!userName">Anonimo</span>
-
-                </button>
-                <button mat-menu-item  (click)="sidenav.opened = false">
-                    <mat-icon>exit_to_app</mat-icon>
-                    <span>Cerrar Sesión</span>
-                </button>
-            </mat-menu>
-            <mat-menu #roles="matMenu"  >
-                    <mat-list>
-                      <h3 mat-subheader>Roles</h3>
-                      <mat-list-item *ngFor="let rol of userRoles">
-                        <mat-icon mat-list-icon>folder</mat-icon>
-                        <h4 mat-line>{{ rol.nombre | uppercase }}</h4>
-                        <mat-divider [inset]="true" *ngIf="!last"></mat-divider>
-                      </mat-list-item>
-                    </mat-list>
-            </mat-menu>
-        </mat-toolbar>
-
-        <mat-sidenav-container class="example-sidenav-container" >
-            <mat-sidenav #sidenav mode="side" class="menu-sinedav"   style="width: 200px">
-                <div class="logo" >
-                      <img src="https://lh3.googleusercontent.com/-YuZUWA6_26w/WUkgwPYIS_I/AAAAAAAAADI/gZDsSjYoyH8-qp19K-o6zS1nK6iPGQ8VQCEwYBhgL/w140-h140-p/image-portada-dragon.jpg"  style="border-radius: 50% ;"width="64">
-                      <br>
-                      <span *ngIf="userName" fxHide fxShow.gt-sm>{{userName | uppercase }}</span>
-                      <span *ngIf="!userName" fxHide fxShow.gt-sm class="name" >Anonimo</span>
-                      <br>
-                      <span style="font-size: 12px "   >Gerente</span>
-                </div>
-                <mat-divider></mat-divider>
-
-                <div class="container-sinedav"  >
-                  <button mat-menu-item  routerLink="/unidad"  style="cursor: pointer; font-size : 14px;height:40px">
-                    <mat-icon>people</mat-icon>
-                    <span>Unidad Medida</span>
-
-                  </button>
-                  <button mat-menu-item  routerLink="/cliente"  style="cursor: pointer ; pointer; font-size : 14px;height:40px">
-                    <mat-icon>shopping_basket</mat-icon>
-                    <span>Comprar</span>
-                  </button>
-                </div>
-
-                <mat-divider></mat-divider>
-            </mat-sidenav>
-
-            <mat-sidenav-content>
-                <router-outlet></router-outlet>
-              <div style="margin: 25px ; overflow: hidden;">
-                <router-outlet></router-outlet>
-              </div>
-            </mat-sidenav-content>
-        </mat-sidenav-container>
+    <span class="example-spacer"></span>
+    <div class="sinedav option-nav" *ngIf="searchMode!=='close'">
+      <button mat-icon-button title="ultima ventas">
+        <mat-icon aria-label="label">list</mat-icon>
+      </button>
     </div>
+    <button class="option-nav" mat-icon-button title="buscar" (click)="changeSeacch() ">
+      <mat-icon>{{searchMode}}</mat-icon>
+    </button>
+    <button *ngIf="searchMode!=='close'" class="option-nav" mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
 
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item [matMenuTriggerFor]="roles" routerLink="/perfil">
+        <mat-icon>account_box</mat-icon>
+        <span *ngIf="userName">{{userName | uppercase }}</span>
+        <span *ngIf="!userName">Anonimo</span>
+
+      </button>
+      <button mat-menu-item (click)="sidenav.opened = false">
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Cerrar Sesión</span>
+      </button>
+    </mat-menu>
+    <mat-menu #roles="matMenu">
+      <mat-list>
+        <h3 mat-subheader>Roles</h3>
+        <mat-list-item *ngFor="let rol of userRoles">
+          <mat-icon mat-list-icon>folder</mat-icon>
+          <h4 mat-line>{{ rol.nombre | uppercase }}</h4>
+          <mat-divider [inset]="true" *ngIf="!last"></mat-divider>
+        </mat-list-item>
+      </mat-list>
+    </mat-menu>
+  </mat-toolbar>
+
+  <mat-sidenav-container class="example-sidenav-container">
+    <mat-sidenav #sidenav mode="side" class="menu-sinedav" style="width: 200px">
+      <div class="logo">
+        <img
+          src="https://lh3.googleusercontent.com/-YuZUWA6_26w/WUkgwPYIS_I/AAAAAAAAADI/gZDsSjYoyH8-qp19K-o6zS1nK6iPGQ8VQCEwYBhgL/w140-h140-p/image-portada-dragon.jpg"
+          style="border-radius: 50% ;" width="64">
+        <br>
+        <span *ngIf="userName" fxHide fxShow.gt-sm>{{userName | uppercase }}</span>
+        <span *ngIf="!userName" fxHide fxShow.gt-sm class="name">Anonimo</span>
+        <br>
+        <span style="font-size: 12px ">Gerente</span>
+      </div>
+      <mat-divider></mat-divider>
+
+      <div class="container-sinedav">
+        <div fxLayout="row" style="position: relative;" >
+          <button mat-menu-item routerLink="/producto" style="cursor: pointer ; font-size : 14px;height:40px">
+            <mat-icon>add_to_queue</mat-icon>
+            <span>Producto</span>
+          </button>
+        </div>
+        <button mat-menu-item routerLink="/cliente" style="cursor: pointer ; font-size : 14px;height:40px">
+          <mat-icon>shopping_basket</mat-icon>
+          <span>Comprar</span>
+        </button>
+        <button mat-menu-item routerLink="/proveedor" style="cursor: pointer; font-size : 14px;height:40px">
+          <mat-icon>people</mat-icon>
+          <span>Proveedor</span>
+        </button>
+        <button mat-menu-item routerLink="/cliente" style="cursor: pointer; font-size : 14px;height:40px">
+          <mat-icon>pregnant_woman</mat-icon>
+          <span>Cliente</span>
+        </button>
+        <button mat-menu-item routerLink="/personal" style="cursor: pointer ; font-size : 14px;height:40px">
+          <mat-icon>account_circle</mat-icon>
+          <span>Personal</span>
+        </button>
+        <button mat-menu-item routerLink="/categoria" style="cursor: pointer ; font-size : 14px;height:40px">
+          <mat-icon>category</mat-icon>
+          <span>Categoria</span>
+        </button>
+        <button mat-menu-item routerLink="/dolencia" style="cursor: pointer ; font-size : 14px;height:40px">
+          <mat-icon>assignment</mat-icon>
+          <span>Dolencia</span>
+        </button>
+      
+        <button mat-menu-item routerLink="/unidad" style="cursor: pointer ; font-size : 14px;height:40px">
+          <mat-icon>label</mat-icon>
+          <span>Unidad de Medida</span>
+        </button>
+        <button mat-menu-item routerLink="/documento" style="cursor: pointer ; font-size : 14px;height:40px">
+          <mat-icon>filter_frames</mat-icon>
+          <span>Documento</span>
+        </button>
+        
+      </div>
+
+
+
+      <mat-divider></mat-divider>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+      <div style="margin: 25px ; overflow: hidden;">
+        <router-outlet></router-outlet>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

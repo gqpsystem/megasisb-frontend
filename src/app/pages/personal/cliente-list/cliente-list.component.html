@@ -1,6 +1,6 @@
 <div class="page-layout blank p-24" megaPerfectScrollbar >
   <mat-toolbar color="primary" style="border-radius: 5px 5px 0px 0px">
-    <span   *ngIf="searchMode!=='close'" >LISTA DE Producto</span>
+    <span   *ngIf="searchMode!=='close'" >LISTA DE CLIENTE</span>
     <input *ngIf="searchMode==='close'" matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar Unidad....">
 
     <span style="flex: 1 1 auto;" ></span>
@@ -12,13 +12,40 @@
 
   <div class="mat-elevation-z8">
     <mat-table [dataSource]="dataSource" matSort>
+
       <ng-container matColumnDef="observacion">
-          <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="15%"> Observacion</mat-header-cell>
-          <mat-cell fxFlex="10%" *matCellDef="let element" > {{element.observacion}} </mat-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex > Observacion</mat-header-cell>
+          <mat-cell fxFlex *matCellDef="let element" > {{element.observacion}} </mat-cell>
       </ng-container>
+
       <ng-container matColumnDef="nombre">
-          <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="15%"> Nombre</mat-header-cell>
-          <mat-cell fxFlex="10%" *matCellDef="let element" > {{element.persona.nombre}} </mat-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex > Nombre</mat-header-cell>
+          <mat-cell fxFlex *matCellDef="let element" > {{element.persona.nombre}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="apellido">
+          <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex > Apellido</mat-header-cell>
+          <mat-cell fxFlex *matCellDef="let element" > {{element.persona.apellido}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="documento">
+          <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex > Documento</mat-header-cell>
+          <mat-cell fxFlex *matCellDef="let element" > {{element.persona.numDocumento}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="tipoDocumento">
+          <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex > Tipo </mat-header-cell>
+          <mat-cell fxFlex *matCellDef="let element" > {{element.persona.tipoDocumento.abreviatura}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="telefono">
+          <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex > Telefono</mat-header-cell>
+          <mat-cell fxFlex *matCellDef="let element" > {{element.persona.telefono}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="direccion">
+          <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex > Direccion</mat-header-cell>
+          <mat-cell fxFlex *matCellDef="let element" > {{element.persona.direccion}} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="acciones">
@@ -33,7 +60,7 @@
         </mat-cell>
       </ng-container>
       <mat-header-row *matHeaderRowDef="displayColumn"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayColumn;" class="fila"></mat-row>
+      <mat-row *matRowDef="let row; columns: displayColumn;" [ngClass]="row.idCliente == SelectFocus ? 'focusSelect fila': 'fila'"   (click)="selectRow(row)" ></mat-row>
     </mat-table>
     <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" ></mat-paginator>
   </div>

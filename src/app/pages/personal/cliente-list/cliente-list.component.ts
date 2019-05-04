@@ -11,31 +11,42 @@ import { ClienteEditComponent } from '../cliente-edit/cliente-edit.component';
 })
 export class ClienteListComponent implements OnInit {
 
-  displayColumn: string[] = [ 'observacion', 'acciones' , 'nombre'];
+  displayColumn: string[] = ['nombre', 'apellido' , 'documento', 'tipoDocumento', 'telefono' , 'direccion' , 'observacion', 'acciones'];
 
   dataSource: MatTableDataSource<any>;
-  cantidad: number ;
+  cantidad: number;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  searchMode = 'search' ;
+  searchMode = 'search';
+  SelectFocus: string;
 
-  constructor(public dialog: MatDialog , private dataService: DataService , private snackBar: MatSnackBar ) { }
+  constructor(public dialog: MatDialog, private dataService: DataService, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.dataService.clientes().getAll().subscribe(data => {
       this.setData(data);
+      this.dataSource.filterPredicate  = (dato, filter: string) => {
+        const dataStr = dato.persona.nombre.toLowerCase() + dato.observacion  + dato.persona.apellido +
+                        dato.persona.numDocumento + dato.persona.telefono + dato.persona.direccion
+                        + dato.persona.tipoDocumento.abreviatura.toLowerCase();
+        
+        return dataStr.indexOf(filter) !== -1;
+      };
     });
-    this.dataService.providers().cambio.subscribe( data => { this.setData(data) });
-    this.dataService.providers().mensaje.subscribe( data => {
+    this.dataService.providers().cambio.subscribe(data => { this.setData(data) });
+    this.dataService.providers().mensaje.subscribe(data => {
       this.snackBar.open(data, 'Mensaje', { duration: 3000 });
-    })
+    });
   }
+  selectRow(event) {
+    this.SelectFocus = event.idCliente;
 
-  setData(data){
-    let r = data ;
+  }
+  setData(data) {
+    let r = data;
     this.cantidad = JSON.parse(JSON.stringify(data)).length;
-    this.dataSource =new MatTableDataSource(r);
-    this.dataSource.paginator=this.paginator;
+    this.dataSource = new MatTableDataSource(r);
+    this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
   applyFilter(filterValue: string) {
@@ -45,17 +56,17 @@ export class ClienteListComponent implements OnInit {
   }
 
   changeSeacch() {
-    if(this.searchMode === 'search') {
-      this.searchMode = 'close' ;
+    if (this.searchMode === 'search') {
+      this.searchMode = 'close';
     } else {
-      this.searchMode = 'search' ;
+      this.searchMode = 'search';
     }
   }
 
-  openDialog(cliente: any): void{
-    const client =  cliente != null ? cliente : new Cliente()
-    this.dialog.open(ClienteEditComponent , {
-      width : '1200px',
+  openDialog(cliente: any): void {
+    const client = cliente != null ? cliente : new Cliente()
+    this.dialog.open(ClienteEditComponent, {
+      width: '1200px',
       data: client
     });
   }

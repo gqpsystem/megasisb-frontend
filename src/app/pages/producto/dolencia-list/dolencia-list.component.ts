@@ -11,13 +11,14 @@ import { Dolencia } from 'src/app/model/dolencia.model';
 })
 export class DolenciaListComponent implements OnInit {
 
-  displayedColumns: string[] = ['idDolencia', 'dolencia', 'acciones'];
+  displayedColumns: string[] = [ 'dolencia', 'acciones'];
   dataSource: MatTableDataSource<any>;
   cantidad: number;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   searchMode = 'search' ;
-
+  SelectFocus: string;
+  
   constructor(private dataService: DataService, private snackBar: MatSnackBar,public dialog: MatDialog) { }
 
   ngOnInit() {
@@ -58,5 +59,9 @@ export class DolenciaListComponent implements OnInit {
     } else {
       this.searchMode = 'search' ;
     }
+  }
+  selectRow(event) {
+    this.SelectFocus = event.idDolencia;
+
   }
 }

@@ -10,8 +10,7 @@ import { Personal } from 'src/app/model/personal.model';
   styleUrls: ['./personal-edit.component.scss']
 })
 export class PersonalEditComponent implements OnInit {
-  imageDefault =
-    'https://www.alliedmarketresearch.com/blog/images/user_icon.png';
+  imageDefault = 'http://localhost:8083/api/image/perfil/user_icon.png';
   id: number;
   form: FormGroup;
   formPerson: any = FormGroup;
@@ -33,7 +32,23 @@ export class PersonalEditComponent implements OnInit {
     this.loadFormBuilder();
     this.listarDocumento();
     this.loadData();
+    this.loadImage();
   }
+
+  loadImage() {
+    if (this.data.foto !== undefined) {
+      this.imageDefault = 'http://localhost:8083/api/image/perfil/' + this.data.foto;
+    } else {
+      fetch('http://localhost:8083/api/image/perfil/user_icon.png').then(response =>
+        response.blob()
+      ).then(blob => {
+
+        const fil = new File([blob], 'PhotoDefault.png', { type: 'image/png', lastModified: Date.now() });
+        this.fileUpload = fil;
+      });
+    }
+  }
+
 
   loadData() {
     this.edicion = this.data.idPersonal !== undefined;
@@ -48,6 +63,7 @@ export class PersonalEditComponent implements OnInit {
           fechaNacimiento: data.fechaNacimiento,
           idPersonal: data.idPersonal,
           fechaIngreso: data.fechaIngreso,
+          foto: data.foto,
           sueldo: parseFloat(data.sueldo || 0)
         });
         this.buildData(data.persona);
@@ -59,12 +75,7 @@ export class PersonalEditComponent implements OnInit {
   buildData(data) {
 
     this.form.controls.persona.patchValue(data);
-    /*
-      const tipoDocumeto = this.tipodocumentos.find(
-        t => t.idTipodocumento == data.tipoDocumeto.idTipodocumento
-      );
-      this.form.controls.persona.get("tipoDocumeto").setValue(tipoDocumeto);
-     */
+
   }
 
 

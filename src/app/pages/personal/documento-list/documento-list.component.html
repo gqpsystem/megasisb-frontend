@@ -13,14 +13,14 @@
   <div class="mat-elevation-z8">
     <mat-table [dataSource]="dataSource" matSort>
       <ng-container matColumnDef="abreviatura">
-        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="10%" > Abreviatura </mat-header-cell>
-        <mat-cell fxFlex="10%" *matCellDef="let row" >
+        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex> Abreviatura </mat-header-cell>
+        <mat-cell fxFlex *matCellDef="let row" >
           {{row.abreviatura}}
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="denominacion">
-        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="10%" > Denominacion </mat-header-cell>
-        <mat-cell fxFlex="10%" *matCellDef="let row" >
+        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex> Denominacion </mat-header-cell>
+        <mat-cell fxFlex *matCellDef="let row" >
           {{row.denominacionDoc}}
         </mat-cell>
       </ng-container>
@@ -42,7 +42,7 @@
           <mat-cell  *matCellDef="let element" > {{element.dolencia.dolencia}} </mat-cell>
       </ng-container>
       <mat-header-row *matHeaderRowDef="displayColumn"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayColumn;" class="fila"></mat-row>
+      <mat-row *matRowDef="let row; columns: displayColumn;" [ngClass]="row.idTipoDocumento == SelectFocus ? 'focusSelect fila': 'fila'"   (click)="selectRow(row)" ></mat-row>
     </mat-table>
     <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" ></mat-paginator>
   </div>

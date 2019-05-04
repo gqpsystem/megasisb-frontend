@@ -1,15 +1,11 @@
-<h2 mat-dialog-title>Registrar Unidad Medida</h2>
+<h2 mat-dialog-title>Registrar de Tipo Comprobante</h2>
 <mat-dialog-content class="mat-typography"  align="center">
   <form class="container" [formGroup]="form" #f="ngForm">
       <mat-form-field appearance="outline">
-        <mat-label>Presentacion</mat-label>
-        <input matInput placeholder="presentacion" required formControlName="presentacion">
+        <mat-label>Descripcion del Comprobante</mat-label>
+        <input matInput placeholder="Descripcion del Comprobante" required formControlName="descripcionDoc">
       </mat-form-field>
-      <br>
-        <mat-form-field appearance="outline">
-          <mat-label>Descripcion</mat-label>
-          <input matInput placeholder="descripcion" required formControlName="descripcion">
-        </mat-form-field>
+      
   </form>
 </mat-dialog-content>
 <mat-dialog-actions align="center">

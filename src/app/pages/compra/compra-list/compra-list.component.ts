@@ -1,18 +1,16 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatPaginator, MatSort, MatSnackBar, MatDialog } from '@angular/material';
-import { DataService } from 'src/app/data/data.service';
-import { UnidadEditComponent } from '../unidad-edit/unidad-edit.component';
-import { UnidadMedida } from 'src/app/model/unidad.model';
+import { DataService } from '../../../data/data.service';
 
 @Component({
-  selector: 'app-unidad-list',
-  templateUrl: './unidad-list.component.html',
-  styleUrls: ['./unidad-list.component.scss']
+  selector: 'app-compra-list',
+  templateUrl: './compra-list.component.html',
+  styleUrls: ['./compra-list.component.scss']
 })
-export class UnidadListComponent implements OnInit {
+export class CompraListComponent implements OnInit {
 
   lista: any[] = [];
-  displayedColumns: string[] = ['idUnidadmedida', 'codUnidadmedida', 'descripcion', 'acciones'];
+  displayedColumns: string[] = ['acciones'];
   dataSource: MatTableDataSource<any>;
   cantidad: number;
   SelectFocus: string;
@@ -23,15 +21,19 @@ export class UnidadListComponent implements OnInit {
   constructor(private dataService: DataService, private snackBar: MatSnackBar, public dialog: MatDialog) { }
 
   ngOnInit() {
-    this.dataService.unidadMedidas().getAll().subscribe(data => this.setData(data));
+    this.dataService.compras().getAll().subscribe(data => {
+      this.setData(data);
+      console.log(data);
+    });
     this.dataService.providers().cambio.subscribe(data => this.setData(data));
     this.dataService.providers().mensaje.subscribe(data => {
+
       this.snackBar.open(data, 'Mensaje', { duration: 3000 });
     });
   }
 
   selectRow(event) {
-    this.SelectFocus = event.idUnidadmedida;
+    this.SelectFocus = event.idCompra;
 
   }
 
@@ -49,7 +51,8 @@ export class UnidadListComponent implements OnInit {
     this.dataSource.filter = filterValue;
   }
 
-  openDialog(unid: any): void {
+  openDialog(compra: any): void {
+    /*
     const unidad = unid != null ? unid : new UnidadMedida();
     const dialogRef = this.dialog.open(UnidadEditComponent, {
       data: unidad
@@ -57,6 +60,7 @@ export class UnidadListComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
 
     });
+    */
   }
 
   changeSeacch() {
