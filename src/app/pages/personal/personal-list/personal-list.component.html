@@ -29,71 +29,73 @@
       </section>
     </div >
   </div>
-  <div class="mat-elevation-z8" fxFlex="100%"  >
-    <mat-table [dataSource]="dataSource" matSort>
-      <ng-container matColumnDef="nombre">
-          <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex > Nombre</mat-header-cell>
-          <mat-cell fxFlex  *matCellDef="let element" > {{element.persona.nombre}} </mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="foto">
-        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex > Foto</mat-header-cell>
-        <mat-cell fxFlex  *matCellDef="let element ; let i= index" > <img src="http://localhost:8083/api/image/perfil/{{element.foto}}" alt="foto de perfil" style="border-radius:50% ; height: 45px" >  </mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="documento">
-        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex > Documento</mat-header-cell>
-        <mat-cell fxFlex *matCellDef="let element" > {{element.persona.numDocumento}}</mat-cell>
-      </ng-container>
+  <div ngClass.xs="tabla" fxFlex="100%"  >
+    <div class="mat-elevation-z8" ngClass.xs="mat-elevation-z8 fondo-tabla "  >
+      <mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="nombre">
+            <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex > Nombre</mat-header-cell>
+            <mat-cell fxFlex  *matCellDef="let element" > {{element.persona.nombre}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="foto">
+          <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex > Foto</mat-header-cell>
+          <mat-cell fxFlex  *matCellDef="let element ; let i= index" > <img src="http://localhost:8083/api/image/perfil/{{element.foto}}" alt="foto de perfil" style="border-radius:50% ; height: 45px" >  </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="documento">
+          <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex > Documento</mat-header-cell>
+          <mat-cell fxFlex *matCellDef="let element" > {{element.persona.numDocumento}}</mat-cell>
+        </ng-container>
 
-      <ng-container matColumnDef="tipoDocumento">
-        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex > Tipo de Documento</mat-header-cell>
-        <mat-cell fxFlex *matCellDef="let element" > {{element.persona.tipoDocumento.abreviatura}}</mat-cell>
-      </ng-container>
+        <ng-container matColumnDef="tipoDocumento">
+          <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex > Tipo de Documento</mat-header-cell>
+          <mat-cell fxFlex *matCellDef="let element" > {{element.persona.tipoDocumento.abreviatura}}</mat-cell>
+        </ng-container>
 
-      <ng-container matColumnDef="email">
-        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex > Email</mat-header-cell>
-        <mat-cell fxFlex  *matCellDef="let element" > {{element.email}}</mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="fechaIngreso">
-        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex > Fecha de Ingreso</mat-header-cell>
-        <mat-cell fxFlex  *matCellDef="let element" > {{element.fechaIngreso}}</mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="fechaNacimiento">
-        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex > Fecha de Nacimiento</mat-header-cell>
-        <mat-cell fxFlex  *matCellDef="let element" > {{element.fechaNacimiento}}</mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="apellido">
-        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex > Apellido</mat-header-cell>
-        <mat-cell fxFlex  *matCellDef="let element" > {{element.persona.apellido}}</mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="direccion">
-        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex > Direccion</mat-header-cell>
-        <mat-cell fxFlex  *matCellDef="let element" > {{element.persona.direccion}}</mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="telefono">
-        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex > Telefono</mat-header-cell>
-        <mat-cell fxFlex  *matCellDef="let element" > {{element.persona.telefono}}</mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="sueldo">
-        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex > Sueldo</mat-header-cell>
-        <mat-cell fxFlex  *matCellDef="let element" > {{element.sueldo}}</mat-cell>
-      </ng-container>
-    
-      <ng-container matColumnDef="acciones">
-        <mat-header-cell *matHeaderCellDef fxFlex="10%">ACCIONES</mat-header-cell>
-        <mat-cell fxFlex="10%" *matCellDef="let row" >
-          <button mat-icon-button matTooltip="Editar" color="primary" (click)="openDialog(row)">
-            <mat-icon>edit</mat-icon>
-          </button>
-          <button mat-icon-button matTooltip="Eliminar" color="accent" (click)="eliminar(row.idUnidadmedida)" >
-            <mat-icon>delete</mat-icon>
-          </button>
-        </mat-cell>
-      </ng-container>
+        <ng-container matColumnDef="email">
+          <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex > Email</mat-header-cell>
+          <mat-cell fxFlex  *matCellDef="let element" > {{element.email}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="fechaIngreso">
+          <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex > Fecha de Ingreso</mat-header-cell>
+          <mat-cell fxFlex  *matCellDef="let element" > {{element.fechaIngreso}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="fechaNacimiento">
+          <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex > Fecha de Nacimiento</mat-header-cell>
+          <mat-cell fxFlex  *matCellDef="let element" > {{element.fechaNacimiento}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="apellido">
+          <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex > Apellido</mat-header-cell>
+          <mat-cell fxFlex  *matCellDef="let element" > {{element.persona.apellido}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="direccion">
+          <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex > Direccion</mat-header-cell>
+          <mat-cell fxFlex  *matCellDef="let element" > {{element.persona.direccion}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="telefono">
+          <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex > Telefono</mat-header-cell>
+          <mat-cell fxFlex  *matCellDef="let element" > {{element.persona.telefono}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="sueldo">
+          <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex > Sueldo</mat-header-cell>
+          <mat-cell fxFlex  *matCellDef="let element" > {{element.sueldo}}</mat-cell>
+        </ng-container>
       
-      <mat-header-row *matHeaderRowDef="displayColumn"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayColumn;"  [ngClass]="row.idPersonal == SelectFocus ? 'focusSelect fila': 'fila'"   (click)="selectRow(row)" ></mat-row>
-    </mat-table>
-    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" ></mat-paginator>
+        <ng-container matColumnDef="acciones">
+          <mat-header-cell *matHeaderCellDef fxFlex="10%">ACCIONES</mat-header-cell>
+          <mat-cell fxFlex="10%" *matCellDef="let row" >
+            <button mat-icon-button matTooltip="Editar" color="primary" (click)="openDialog(row)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button matTooltip="Eliminar" color="accent" (click)="eliminar(row.idUnidadmedida)" >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-cell>
+        </ng-container>
+        
+        <mat-header-row *matHeaderRowDef="displayColumn"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayColumn;"  [ngClass]="row.idPersonal == SelectFocus ? 'focusSelect fila': 'fila'"   (click)="selectRow(row)" ></mat-row>
+      </mat-table>
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" ></mat-paginator>
+    </div>
   </div>
 
   <button mat-fab color="accent" style="float:right" (click)="openDialog()">

@@ -28,67 +28,69 @@
       </section>
     </div >
   </div>
-  <div class="mat-elevation-z8" fxFlex="100%" >
-    <mat-table [dataSource]="dataSource" matSort>
-      <ng-container matColumnDef="ciudad">
-        <th fxFlex mat-header-cell *matHeaderCellDef> Ciudad </th>
-        <td fxFlex mat-cell *matCellDef="let row"> {{row.ciudad}} </td>
-      </ng-container>  
-      <ng-container matColumnDef="email">
-        <th fxFlex mat-header-cell *matHeaderCellDef> Email </th>
-        <td fxFlex mat-cell *matCellDef="let row"> {{row.email}} </td>
-      </ng-container>  
-      <ng-container matColumnDef="laboratorio">
-        <th fxFlex mat-header-cell *matHeaderCellDef> Laboratorio </th>
-        <td fxFlex mat-cell *matCellDef="let row"> {{row.laboratorio}} </td>
-      </ng-container>  
-      <ng-container matColumnDef="apellido">
-        <th fxFlex mat-header-cell *matHeaderCellDef> Apellido </th>
-        <td  fxFlex mat-cell *matCellDef="let row"> {{row.persona.apellido}} </td>
-      </ng-container>  
-      <ng-container matColumnDef="direccion">
-        <th fxFlex mat-header-cell *matHeaderCellDef> Direccion </th>
-        <td fxFlex mat-cell *matCellDef="let row"> {{row.persona.direccion}} </td>
-      </ng-container>  
-      <ng-container  matColumnDef="nombre">
-        <th fxFlex mat-header-cell *matHeaderCellDef> Nombre </th>
-        <td fxFlex mat-cell *matCellDef="let row"> {{row.persona.nombre}} </td>
-      </ng-container>  
-      <ng-container matColumnDef="telefono">
-        <th fxFlex mat-header-cell *matHeaderCellDef> Telefono </th>
-        <td fxFlex mat-cell *matCellDef="let row"> {{row.persona.nombre}} </td>
-      </ng-container>  
-      <ng-container matColumnDef="numdocumento">
-        <th fxFlex mat-header-cell *matHeaderCellDef> Numero de Document </th>
-        <td fxFlex mat-cell *matCellDef="let row"> {{row.persona.numDocumento}} </td>
-      </ng-container>  
-      <ng-container  matColumnDef="tipoDocumento">
-        <th fxFlex mat-header-cell *matHeaderCellDef> Tipo de Documento </th>
-        <td  fxFlex mat-cell *matCellDef="let row"> {{row.persona.tipoDocumento.abreviatura}} </td>
-      </ng-container>  
-      <ng-container  matColumnDef="razonSocial">
-        <th fxFlex mat-header-cell *matHeaderCellDef> Razon Social </th>
-        <td  fxFlex mat-cell *matCellDef="let row"> {{row.razonSocial}} </td>
-      </ng-container> 
-      
-      <ng-container matColumnDef="acciones">
-        <mat-header-cell *matHeaderCellDef fxFlex="10%">ACCIONES</mat-header-cell>
-        <mat-cell fxFlex="10%" *matCellDef="let row" >
-          <button mat-icon-button matTooltip="Editar" color="primary" (click)="openDialog(row)">
-            <mat-icon>edit</mat-icon>
-          </button>
-          <button mat-icon-button matTooltip="Eliminar" color="accent" (click)="eliminar(row.idUnidadmedida)" >
-            <mat-icon>delete</mat-icon>
-          </button>
-        </mat-cell>
-      </ng-container>
+  
+  <div ngClass.xs="tabla" fxFlex="100%"  >
+    <div class="mat-elevation-z8" ngClass.xs="mat-elevation-z8 fondo-tabla "  >
+      <mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="ciudad">
+          <th fxFlex mat-header-cell *matHeaderCellDef> Ciudad </th>
+          <td fxFlex mat-cell *matCellDef="let row"> {{row.ciudad}} </td>
+        </ng-container>  
+        <ng-container matColumnDef="email">
+          <th fxFlex mat-header-cell *matHeaderCellDef> Email </th>
+          <td fxFlex mat-cell *matCellDef="let row"> {{row.email}} </td>
+        </ng-container>  
+        <ng-container matColumnDef="laboratorio">
+          <th fxFlex mat-header-cell *matHeaderCellDef> Laboratorio </th>
+          <td fxFlex mat-cell *matCellDef="let row"> {{row.laboratorio}} </td>
+        </ng-container>  
+        <ng-container matColumnDef="apellido">
+          <th fxFlex mat-header-cell *matHeaderCellDef> Apellido </th>
+          <td  fxFlex mat-cell *matCellDef="let row"> {{row.persona.apellido}} </td>
+        </ng-container>  
+        <ng-container matColumnDef="direccion">
+          <th fxFlex mat-header-cell *matHeaderCellDef> Direccion </th>
+          <td fxFlex mat-cell *matCellDef="let row"> {{row.persona.direccion}} </td>
+        </ng-container>  
+        <ng-container  matColumnDef="nombre">
+          <th fxFlex mat-header-cell *matHeaderCellDef> Nombre </th>
+          <td fxFlex mat-cell *matCellDef="let row"> {{row.persona.nombre}} </td>
+        </ng-container>  
+        <ng-container matColumnDef="telefono">
+          <th fxFlex mat-header-cell *matHeaderCellDef> Telefono </th>
+          <td fxFlex mat-cell *matCellDef="let row"> {{row.persona.nombre}} </td>
+        </ng-container>  
+        <ng-container matColumnDef="numdocumento">
+          <th fxFlex mat-header-cell *matHeaderCellDef> Numero de Document </th>
+          <td fxFlex mat-cell *matCellDef="let row"> {{row.persona.numDocumento}} </td>
+        </ng-container>  
+        <ng-container  matColumnDef="tipoDocumento">
+          <th fxFlex mat-header-cell *matHeaderCellDef> Tipo de Documento </th>
+          <td  fxFlex mat-cell *matCellDef="let row"> {{row.persona.tipoDocumento.abreviatura}} </td>
+        </ng-container>  
+        <ng-container  matColumnDef="razonSocial">
+          <th fxFlex mat-header-cell *matHeaderCellDef> Razon Social </th>
+          <td  fxFlex mat-cell *matCellDef="let row"> {{row.razonSocial}} </td>
+        </ng-container> 
+        
+        <ng-container matColumnDef="acciones">
+          <mat-header-cell *matHeaderCellDef fxFlex="10%">ACCIONES</mat-header-cell>
+          <mat-cell fxFlex="10%" *matCellDef="let row" >
+            <button mat-icon-button matTooltip="Editar" color="primary" (click)="openDialog(row)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button matTooltip="Eliminar" color="accent" (click)="eliminar(row.idUnidadmedida)" >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-cell>
+        </ng-container>
 
-      <mat-header-row *matHeaderRowDef="displayColumn"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayColumn;" [ngClass]="row.idProveedor == SelectFocus ? 'focusSelect fila': 'fila'"   (click)="selectRow(row)" ></mat-row>
-    </mat-table>
-    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" ></mat-paginator>
+        <mat-header-row *matHeaderRowDef="displayColumn"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayColumn;" [ngClass]="row.idProveedor == SelectFocus ? 'focusSelect fila': 'fila'"   (click)="selectRow(row)" ></mat-row>
+      </mat-table>
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" ></mat-paginator>
+    </div>
   </div>
-
   <button mat-fab color="accent" style="float:right" (click)="openDialog()">
     <mat-icon>create</mat-icon>
   </button>

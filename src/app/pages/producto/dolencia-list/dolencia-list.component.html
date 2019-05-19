@@ -10,31 +10,32 @@
 
     </mat-toolbar>
 
-    <div class="mat-elevation-z8">
-      <mat-table [dataSource]="dataSource" matSort>
-        
-        <ng-container matColumnDef="dolencia">
-          <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex> Dolencia</mat-header-cell>
-          <mat-cell fxFlex *matCellDef="let element" > {{element.dolencia}} </mat-cell>
-        </ng-container>
+    <div ngClass.xs="tabla"   >
+      <div class="mat-elevation-z8" ngClass.xs="mat-elevation-z8 fondo-tabla "  >
+        <mat-table [dataSource]="dataSource" matSort>
+          
+          <ng-container matColumnDef="dolencia">
+            <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex> Dolencia</mat-header-cell>
+            <mat-cell fxFlex *matCellDef="let element" > {{element.dolencia}} </mat-cell>
+          </ng-container>
 
-        <ng-container matColumnDef="acciones">
-          <mat-header-cell *matHeaderCellDef fxFlex="10%">ACCIONES</mat-header-cell>
-          <mat-cell fxFlex="10%" *matCellDef="let row" >
-            <button mat-icon-button matTooltip="Editar" color="primary" (click)="openDialog(row)">
-              <mat-icon>edit</mat-icon>
-            </button>
-            <button mat-icon-button matTooltip="Eliminar" color="accent" (click)="eliminar(row.idUnidadmedida)" >
-              <mat-icon>delete</mat-icon>
-            </button>
-          </mat-cell>
-        </ng-container>
-        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="row.idDolencia == SelectFocus ? 'focusSelect fila': 'fila'"   (click)="selectRow(row)" ></mat-row>
-      </mat-table>
-      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" ></mat-paginator>
+          <ng-container matColumnDef="acciones">
+            <mat-header-cell *matHeaderCellDef fxFlex="10%">ACCIONES</mat-header-cell>
+            <mat-cell fxFlex="10%" *matCellDef="let row" >
+              <button mat-icon-button matTooltip="Editar" color="primary" (click)="openDialog(row)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button matTooltip="Eliminar" color="accent" (click)="eliminar(row.idUnidadmedida)" >
+                <mat-icon>delete</mat-icon>
+              </button>
+            </mat-cell>
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="row.idDolencia == SelectFocus ? 'focusSelect fila': 'fila'"   (click)="selectRow(row)" ></mat-row>
+        </mat-table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" ></mat-paginator>
+      </div>
     </div>
-
     <button mat-fab color="accent" style="float:right" (click)="openDialog()">
       <mat-icon>create</mat-icon>
     </button>

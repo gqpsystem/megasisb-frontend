@@ -29,95 +29,96 @@
       </section>
     </div >
   </div>
-  <div class="mat-elevation-z8" fxFlex="100%">
-    <mat-table [dataSource]="dataSource" matSort>
-      <ng-container matColumnDef="codigo">
-          <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex > Codigo</mat-header-cell>
-          <mat-cell fxFlex *matCellDef="let element" > {{element.codigo}} </mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="producto">
-        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex> Producto </mat-header-cell>
-        <mat-cell fxFlex *matCellDef="let element">
-          <div class="jbox-main" fxFlex="100&" >
-            {{element.numProducto}}
-            <div class="jbox-image" fxFlex="100%"  style="position: absolute " >
-                <mat-card class="example-card" fxFlex="200px" fxFlex.xs="90px">
-                  <mat-card-header>
-                    <mat-card-title>{{element.numProducto}}</mat-card-title>
-                  </mat-card-header>
-                  <img mat-card-image src="http://localhost:8083/api/image/producto/{{element.imagen}}" alt="Photo of a Shiba Inu">
-              
-                </mat-card>
+  <div ngClass.xs="tabla" fxFlex="100%"  >
+    <div class="mat-elevation-z8" ngClass.xs="mat-elevation-z8 fondo-tabla "  >
+      <mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="codigo">
+            <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex > Codigo</mat-header-cell>
+            <mat-cell fxFlex *matCellDef="let element" > {{element.codigo}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="producto">
+          <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex> Producto </mat-header-cell>
+          <mat-cell fxFlex *matCellDef="let element">
+            <div class="jbox-main" fxFlex="100&" >
+              {{element.numProducto}}
+              <div class="jbox-image" fxFlex="100%"  style="position: absolute " >
+                  <mat-card class="example-card" fxFlex="200px" fxFlex.xs="200px">
+                    <mat-card-header>
+                      <mat-card-title>{{element.numProducto}}</mat-card-title>
+                    </mat-card-header>
+                    <img mat-card-image src="http://localhost:8083/api/image/producto/{{element.imagen}}" alt="Photo of a Shiba Inu">
+                
+                  </mat-card>
+              </div>
             </div>
-          </div>
-        </mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="precioCompra">
-        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex> Precio de Compra</mat-header-cell>
-        <mat-cell fxFlex *matCellDef="let element" > {{element.precioCompra}} </mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="precioVenta">
-        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex > Precio de Venta</mat-header-cell>
-        <mat-cell fxFlex *matCellDef="let element" > {{element.precioVenta}} </mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="stock">
-        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex> Stock</mat-header-cell>
-        <mat-cell fxFlex *matCellDef="let element" > {{element.stock}} </mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="fechaVencimiento">
-        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex>Fecha de Vencimiento</mat-header-cell>
-        <mat-cell fxFlex *matCellDef="let element" > {{element.fechaVencimiento}} </mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="area">
-        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex > Area</mat-header-cell>
-        <mat-cell fxFlex *matCellDef="let element" > {{element.area}} </mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="laboratorio">
-        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex > Laboratorio</mat-header-cell>
-        <mat-cell fxFlex *matCellDef="let element" > {{element.laboratorio}} </mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="lote">
-        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex> Lote</mat-header-cell>
-        <mat-cell fxFlex *matCellDef="let element" > {{element.numLote}} </mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="dolencia">
-        <mat-header-cell fxFlex *matHeaderCellDef mat-sort-header > Dolor de cabeza</mat-header-cell>
-        <mat-cell fxFlex  *matCellDef="let element" > {{element.dolencia.dolencia}} </mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="categoria">
-        <mat-header-cell fxFlex *matHeaderCellDef mat-sort-header > Categoria</mat-header-cell>
-        <mat-cell fxFlex  *matCellDef="let element" > {{element.dolencia.dolencia}} </mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="recomendacion">
-        <mat-header-cell fxFlex *matHeaderCellDef mat-sort-header > Recomendacion</mat-header-cell>
-        <mat-cell fxFlex  *matCellDef="let element" > {{element.recomendacion}} </mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="medida">
-        <mat-header-cell fxFlex *matHeaderCellDef mat-sort-header > Unidad de medida</mat-header-cell>
-        <mat-cell fxFlex  *matCellDef="let element" > {{element.unidadMedida.codUnidadmedida}} </mat-cell>
-      </ng-container>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="precioCompra">
+          <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex> Precio de Compra</mat-header-cell>
+          <mat-cell fxFlex *matCellDef="let element" > {{element.precioCompra}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="precioVenta">
+          <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex > Precio de Venta</mat-header-cell>
+          <mat-cell fxFlex *matCellDef="let element" > {{element.precioVenta}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="stock">
+          <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex> Stock</mat-header-cell>
+          <mat-cell fxFlex *matCellDef="let element" > {{element.stock}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="fechaVencimiento">
+          <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex>Fecha de Vencimiento</mat-header-cell>
+          <mat-cell fxFlex *matCellDef="let element" > {{element.fechaVencimiento}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="area">
+          <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex > Area</mat-header-cell>
+          <mat-cell fxFlex *matCellDef="let element" > {{element.area}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="laboratorio">
+          <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex > Laboratorio</mat-header-cell>
+          <mat-cell fxFlex *matCellDef="let element" > {{element.laboratorio}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="lote">
+          <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex> Lote</mat-header-cell>
+          <mat-cell fxFlex *matCellDef="let element" > {{element.numLote}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="dolencia">
+          <mat-header-cell fxFlex *matHeaderCellDef mat-sort-header > Dolor de cabeza</mat-header-cell>
+          <mat-cell fxFlex  *matCellDef="let element" > {{element.dolencia.dolencia}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="categoria">
+          <mat-header-cell fxFlex *matHeaderCellDef mat-sort-header > Categoria</mat-header-cell>
+          <mat-cell fxFlex  *matCellDef="let element" > {{element.dolencia.dolencia}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="recomendacion">
+          <mat-header-cell fxFlex *matHeaderCellDef mat-sort-header > Recomendacion</mat-header-cell>
+          <mat-cell fxFlex  *matCellDef="let element" > {{element.recomendacion}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="medida">
+          <mat-header-cell fxFlex *matHeaderCellDef mat-sort-header > Unidad de medida</mat-header-cell>
+          <mat-cell fxFlex  *matCellDef="let element" > {{element.unidadMedida.codUnidadmedida}} </mat-cell>
+        </ng-container>
 
 
-      <ng-container matColumnDef="acciones">
-        <mat-header-cell *matHeaderCellDef fxFlex="10%">ACCIONES</mat-header-cell>
-        <mat-cell fxFlex="10%" *matCellDef="let row" >
-          <button mat-icon-button matTooltip="Editar" color="primary" (click)="openDialog(row)">
-            <mat-icon>edit</mat-icon>
-          </button>
-          <button mat-icon-button matTooltip="Eliminar" color="accent" (click)="eliminar(row.idUnidadmedida)" >
-            <mat-icon>delete</mat-icon>
-          </button>
-        </mat-cell>
-      </ng-container>
-    
-      <mat-header-row *matHeaderRowDef="displayColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayColumns;" [ngClass]="row.idProducto == SelectFocus ? 'focusSelect fila': 'fila'"   (click)="selectRow(row)" ></mat-row>
-    </mat-table>
-    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" ></mat-paginator>
-    <button mat-fab color="accent" style="float:right" (click)="openDialog()">
-      <mat-icon>create</mat-icon>
-    </button>
+        <ng-container matColumnDef="acciones">
+          <mat-header-cell *matHeaderCellDef fxFlex="10%">ACCIONES</mat-header-cell>
+          <mat-cell fxFlex="10%" *matCellDef="let row" >
+            <button mat-icon-button matTooltip="Editar" color="primary" (click)="openDialog(row)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button matTooltip="Eliminar" color="accent" (click)="eliminar(row.idUnidadmedida)" >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-cell>
+        </ng-container>
+      
+        <mat-header-row *matHeaderRowDef="displayColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayColumns;" [ngClass]="row.idProducto == SelectFocus ? 'focusSelect fila': 'fila'"   (click)="selectRow(row)" ></mat-row>
+      </mat-table>
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" ></mat-paginator>
+      <button mat-fab color="accent" style="float:right" (click)="openDialog()">
+        <mat-icon>create</mat-icon>
+      </button>
+    </div>
   </div>
-
  
 </div>

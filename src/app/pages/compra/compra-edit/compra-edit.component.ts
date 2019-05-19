@@ -90,8 +90,6 @@ export class CompraEditComponent implements OnInit {
       igv: [0, Validators.compose([Validators.required])],
       numeroComprobante: [null, Validators.compose([Validators.maxLength(20)])],
       tipocomprobante: [null, Validators.compose([Validators.required])],
-      sucursal: [null, Validators.compose([Validators.required])],
-      guiaRemision: [null, Validators.compose([Validators.required])],
       proveedor: this.myControlProveedor,
       search: [null],//temporal
       detalleCompra: this.formBuilder.array([], Validators.compose([]))
@@ -199,8 +197,8 @@ export class CompraEditComponent implements OnInit {
   }
 
   displayFn(val: any) {
-    /*
-    return val ? ${val.nombreComercial} : val;*/
+
+    return val ? val.razonSocial : undefined;
   }
 
 
@@ -212,6 +210,7 @@ export class CompraEditComponent implements OnInit {
   }
 
   cancel() {
+    
     if (this.edicion) {
       this.router.navigate(['../../'], { relativeTo: this.route });
     } else {
@@ -228,6 +227,8 @@ export class CompraEditComponent implements OnInit {
   }
 
   save() {
+    console.log(this.form.value)
+    /*
     if (!this.detalleCompra.valid) return;
     if (this.edicion) {
       this.dataService.compras().update(this.form.value).subscribe(data => {
@@ -245,6 +246,7 @@ export class CompraEditComponent implements OnInit {
       });
     }
     this.cancel();
+    */
   }
 
   buscarProducto($event) {
