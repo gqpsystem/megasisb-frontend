@@ -84,15 +84,16 @@ export class CompraEditComponent implements OnInit {
     var localISOTime = (new Date(Date.now() - tzoffset)).toISOString()
     this.form = this.formBuilder.group({
       idCompra: [null],
-      fecha: [localISOTime, Validators.compose([Validators.required])],
+      fechaCompra: [localISOTime, Validators.compose([Validators.required])],
       montoTotal: [0, Validators.compose([Validators.required])],
       neto: [0, Validators.compose([Validators.required])],
       igv: [0, Validators.compose([Validators.required])],
-      numeroComprobante: [null, Validators.compose([Validators.maxLength(20)])],
+      numComprobante: [null, Validators.compose([Validators.maxLength(20)])],
       tipocomprobante: [null, Validators.compose([Validators.required])],
       proveedor: this.myControlProveedor,
       search: [null],//temporal
-      detalleCompra: this.formBuilder.array([], Validators.compose([]))
+      detalleCompra: this.formBuilder.array([], Validators.compose([])),
+      codigoCompra: 'dato'
     });
 
     this.detalleCompra.valueChanges.subscribe(value => {

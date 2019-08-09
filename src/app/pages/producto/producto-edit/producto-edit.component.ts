@@ -2,6 +2,7 @@ import { DataService } from 'src/app/data/data.service';
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ReplaySubject } from 'rxjs';
 
 @Component({
   selector: 'app-producto-edit',
@@ -20,7 +21,10 @@ export class ProductoEditComponent implements OnInit {
   ImageProducto = 'http://localhost:8083/api/image/producto/defaul-photo.jpg';
   fileUpload: File = null;
   productoFile: File = null;
-
+  dolores: any[] = [];
+  filtromedida: any[] = [];
+  filtroCategoria: any[] = [];
+  list = [];
   constructor(public dialogRef: MatDialogRef<ProductoEditComponent>, private fb: FormBuilder, public dataService: DataService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
@@ -37,6 +41,31 @@ export class ProductoEditComponent implements OnInit {
     this.id = this.data.idProducto;
     this.loadFormField();
     this.loadImage();
+    this.fuctionsDolencias();
+
+  }
+  selectOption(value) {
+    this.list = this.form.get('dolencia').value;
+
+  }
+
+  buscardolor(event) {
+    if (!event.target.value) {
+      this.dolores = this.dolencias;
+      return;
+    } else {
+      let search = event.target.value;
+
+      this.dolores = this.dolencias.filter(bank => bank.dolencia.toLowerCase().indexOf(search.toLowerCase()) > -1);
+    }
+
+  }
+
+  buscarmedida(event) {
+    this.filtromedida = this.medidas.filter(bank => bank.codUnidadmedida.toLowerCase().indexOf(event.target.value) > -1);
+  }
+  buscarCategoria(event) {
+    this.filtroCategoria = this.categorias.filter(bank => bank.categoria.toLowerCase().indexOf(event.target.value) > -1);
   }
 
   loadImage() {
@@ -80,7 +109,7 @@ export class ProductoEditComponent implements OnInit {
     this.fileUpload = event.target.files.item(0);
     const file = event.target.files[0];
     this.productoFile = file;
-    var reader = new FileReader();
+    const reader = new FileReader();
     reader.onload = (event: any) => {
       this.ImageProducto = event.target.result;
     };
@@ -90,7 +119,13 @@ export class ProductoEditComponent implements OnInit {
 
 
   listarDolencia() {
-    this.dataService.dolencias().getAll().subscribe(data => this.dolencias = data);
+    this.dataService.dolencias().getAll().subscribe(data => {
+
+      this.dolencias = data;
+      this.dolores = this.dolencias;
+
+    });
+
   }
 
   compareDolencia(x: any, y: any): boolean {
@@ -98,7 +133,10 @@ export class ProductoEditComponent implements OnInit {
   }
 
   listarMedida() {
-    this.dataService.unidadMedidas().getAll().subscribe(data => this.medidas = data);
+    this.dataService.unidadMedidas().getAll().subscribe(data => {
+      this.medidas = data;
+      this.filtromedida = data;
+    });
   }
 
   compareUnidadMedida(x: any, y: any): boolean {
@@ -106,7 +144,10 @@ export class ProductoEditComponent implements OnInit {
   }
 
   listarCategoria() {
-    this.dataService.categorias().getAll().subscribe(data => this.categorias = data);
+    this.dataService.categorias().getAll().subscribe(data => {
+      this.categorias = data;
+      this.filtroCategoria = data;
+    });
   }
 
   compareCategoria(x: any, y: any): boolean {
@@ -135,7 +176,8 @@ export class ProductoEditComponent implements OnInit {
 
     formData.append('file', this.fileUpload);
     formData.append('product', producto);
- 
+    console.log(this.form.value);
+
     if (this.id != null && this.data.idProducto > 0) {
       this.dataService.productos().update(formData).subscribe(data => {
         this.dataService.productos().getAll().subscribe(p => {
@@ -153,5 +195,9 @@ export class ProductoEditComponent implements OnInit {
 
     }
     this.dialogRef.close();
+  }
+
+  fuctionsDolencias() {
+
   }
 }

@@ -29,7 +29,7 @@
       </div>
       <div fxFlex="30%" fxFlex.xs="100%">
         <mat-form-field fxFlex class="of-full-width i-space">
-          <input matInput formControlName="fecha" [matDatepicker]="picker" [max]="maxDate" placeholder="Fecha Compra"
+          <input matInput formControlName="fechaCompra" [matDatepicker]="picker" [max]="maxDate" placeholder="Fecha Compra"
             required>
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker touchUi="true" #picker></mat-datepicker>
@@ -38,7 +38,7 @@
      
       <div fxFlex="30%" fxFlex.xs="100%">
         <mat-form-field  fxFlex class="field-container">
-          <input matInput placeholder="Numero Comprobante" required formControlName="numeroComprobante" maxlength="20">
+          <input matInput placeholder="Numero Comprobante" required formControlName="numComprobante" maxlength="20">
           <mat-icon matSuffix>create</mat-icon>
         </mat-form-field>
       </div>

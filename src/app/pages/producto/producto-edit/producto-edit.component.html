@@ -72,34 +72,53 @@
           <mat-label>Stock</mat-label>
           <input type="number" required formControlName="stock" matInput placeholder="stock" />
         </mat-form-field>
-
         <mat-form-field appearance="outline"  fxFlex="45%" fxFlex.xs="100%">
-          <mat-select placeholder="Dolencia" [compareWith]="compareDolencia" formControlName="dolencia"     >
-            <mat-option *ngFor="let dolencia of dolencias"  [value]="dolencia">
-              {{dolencia.dolencia}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <mat-form-field fxFlex="52%"  appearance="outline" fxFlex.xs="100%" >
-            <textarea matInput required formControlName="recomendacion" placeholder="Recomendacion"></textarea>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline"  fxFlex="45%" fxFlex.xs="100%">
+           
           <mat-select placeholder="Categoria" [compareWith]="compareCategoria"  formControlName="categoria"  >
-            <mat-option *ngFor="let categoria of categorias" [value]="categoria">
+            <div style="margin: 10px">
+              <input matInput  placeholder="buscar" (keyup)="buscarCategoria($event)" />
+            </div>
+            <mat-option *ngFor="let categoria of filtroCategoria" [value]="categoria">
               {{categoria.categoria}}
             </mat-option>
-          </mat-select>
+          </mat-select> 
         </mat-form-field>
         <mat-form-field appearance="outline"  fxFlex="52%" fxFlex.xs="100%">
           <mat-select placeholder="Unidad de Medida" formControlName="unidadMedida" [compareWith]="compareUnidadMedida"   >
-            <mat-option *ngFor="let medida of medidas"  [value]="medida">
+            <div style="margin: 10px">
+              <input matInput  placeholder="buscar" (keyup)="buscarmedida($event)" />
+            </div>
+            <mat-option *ngFor="let medida of filtromedida"   [value]="medida">
               {{medida.codUnidadmedida}}
             </mat-option>
           </mat-select>
         </mat-form-field>
 
 
+        
+
+        <mat-form-field appearance="outline"  fxFlex="100%" fxFlex.xs="100%"> 
+          <mat-select placeholder="Dolencia" [compareWith]="compareDolencia"  [multiple]="true" formControlName="dolencia"     >
+            <div style="margin: 10px">
+                <input matInput  placeholder="buscar" (keyup)="buscardolor($event)" />
+            </div>
+            <mat-option *ngFor="let dolencia of dolores" (click)="selectOption($event)" [value]="dolencia">
+              {{dolencia.dolencia}}
+            </mat-option>     
+          </mat-select>
+        </mat-form-field>
+        <div fxFlex="100%" style="padding: 10px ; border-radius: 5px;border: 1px solid black ;"   fxLayout="row wrap"  >
+          <div fxFlex="100%"  style="margin-left: 5px" > <em> Lista de sintomas: </em> {{list.length}} </div>
+          <div  *ngFor="let lista of list" fxFlex="50%" style="padding: 10px" >
+            {{lista.dolencia}}
+          </div>
+        </div>
+
+        <mat-form-field fxFlex="100%"  appearance="outline" fxFlex.xs="100%" >
+            <textarea matInput required formControlName="recomendacion" placeholder="Recomendacion"></textarea>
+        </mat-form-field>
+
+     
         <mat-dialog-actions fxFlex="100%" align="center">
           <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
           <button mat-raised-button color="primary"  [disabled]="f.invalid" (click)="save()" type="button" >Aceptar</button>

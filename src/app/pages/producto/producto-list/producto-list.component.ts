@@ -3,6 +3,8 @@ import { MatDialog, MatTableDataSource, MatSnackBar, MatPaginator, MatSort } fro
 import { Producto } from 'src/app/model/producto.model';
 import { ProductoEditComponent } from '../producto-edit/producto-edit.component';
 import { DataService } from 'src/app/data/data.service';
+import { ReplaySubject } from 'rxjs';
+import { FormControl } from '@angular/forms';
 
 export interface columnDato {
   position: number;
@@ -36,7 +38,7 @@ const DATA: columnDato[] = [
 export class ProductoListComponent implements OnInit {
 
   displayColumns: string[] = ['codigo', 'producto', 'precioCompra', 'precioVenta', 'stock', 'fechaVencimiento',
-    'dolencia', 'acciones'];
+     'acciones'];
 
   dataSource: MatTableDataSource<any>;
   cantidad: number;
@@ -46,6 +48,9 @@ export class ProductoListComponent implements OnInit {
   SelectFocus: string;
   displayOption: columnDato[] = DATA;
   constructor(public dialog: MatDialog, private dataService: DataService, private snackBar: MatSnackBar) { }
+
+  public bankFilterCtrl: FormControl = new FormControl();
+  public filtradoDolores: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
 
   ngOnInit() {
     this.dataService.productos().getAll().subscribe(data => {

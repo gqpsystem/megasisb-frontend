@@ -81,10 +81,10 @@
           <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex> Lote</mat-header-cell>
           <mat-cell fxFlex *matCellDef="let element" > {{element.numLote}} </mat-cell>
         </ng-container>
-        <ng-container matColumnDef="dolencia">
+        <!--<ng-container matColumnDef="dolencia">
           <mat-header-cell fxFlex *matHeaderCellDef mat-sort-header > Dolor de cabeza</mat-header-cell>
           <mat-cell fxFlex  *matCellDef="let element" > {{element.dolencia.dolencia}} </mat-cell>
-        </ng-container>
+        </ng-container>-->
         <ng-container matColumnDef="categoria">
           <mat-header-cell fxFlex *matHeaderCellDef mat-sort-header > Categoria</mat-header-cell>
           <mat-cell fxFlex  *matCellDef="let element" > {{element.dolencia.dolencia}} </mat-cell>
@@ -120,5 +120,8 @@
       </button>
     </div>
   </div>
- 
+  <div style="position: absolute ; bottom: 0px; height: 100px; " fxFlex="100%" > 
+
+
+  </div>
 </div>
