@@ -1,3 +1,42 @@
+.fondo{
+    background: rgba(235, 237, 238, 0.88);
+    border-radius: 5px ; 
+}
+
+.ventana{
+    margin: 5px;
+    padding: 15px;
+    border: 1px #456575 solid;
+    border-radius: 5px;
+}
+.selec-dato{
+    padding-left: 15px;
+
+}
+.table{
+    .table-dato{
+        
+        padding: 10px;
+        border-radius: 5px ;
+        margin: 5px;
+    }
+}
+.listProq{
+    position: fixed;
+    top: 0;
+    height: 100%;
+    left: 0;
+    background: rgba(235, 237, 238, 0.88);
+    z-index: 411;
+    width: 0;
+    overflow-x: hidden; 
+    transition: 0.8s ;
+    >div{
+        margin: 30px ;
+
+    }
+}
+
 $breakpoint-xs: 360px;
 $breakpoint-sm: 767px;
 $breakpoint-md: 1023px;
@@ -86,12 +125,13 @@ mat-toolbar{
 
 }
 .snovaw{
-  transform: translateX(300px); 
-  right: 0px; 
-  position: fixed ; 
-  bottom: 0px; 
-  height: 100%;
-  width: 300px;
+    transform: translateX(300px); 
+    right: 0px; 
+    position: fixed ; 
+    bottom: 0px; 
+    height: 100%;
+    width: 300px;
+    color: white;
   @include media(xs){
     transition:  1s  ;
     width: 100%;

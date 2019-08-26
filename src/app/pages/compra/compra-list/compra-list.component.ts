@@ -23,7 +23,6 @@ export class CompraListComponent implements OnInit {
   ngOnInit() {
     this.dataService.compras().getAll().subscribe(data => {
       this.setData(data);
-      console.log(data);
     });
     this.dataService.providers().cambio.subscribe(data => this.setData(data));
     this.dataService.providers().mensaje.subscribe(data => {

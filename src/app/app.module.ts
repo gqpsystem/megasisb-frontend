@@ -31,6 +31,7 @@ import { CompraEditComponent } from './pages/compra/compra-edit/compra-edit.comp
 import { ProductoDialogoComponent } from './pages/compra/producto-dialogo/producto-dialogo.component';
 import { TipoComprobanteListComponent } from './pages/compra/tipo-comprobante-list/tipo-comprobante-list.component';
 import { TipoComprobanteEditComponent } from './pages/compra/tipo-comprobante-edit/tipo-comprobante-edit.component';
+import { VentaEditComponent } from './pages/compra/venta-edit/venta-edit.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { TipoComprobanteEditComponent } from './pages/compra/tipo-comprobante-ed
     CompraEditComponent,
     ProductoDialogoComponent,
     TipoComprobanteListComponent,
-    TipoComprobanteEditComponent
+    TipoComprobanteEditComponent,
+    VentaEditComponent
   ],
   entryComponents: [
     UnidadEditComponent,

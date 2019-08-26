@@ -1,11 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog, MatTableDataSource, MatSnackBar, MatPaginator, MatSort } from '@angular/material';
-import { Producto } from 'src/app/model/producto.model';
-import { ProductoEditComponent } from '../producto-edit/producto-edit.component';
+import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { DataService } from 'src/app/data/data.service';
-import { ReplaySubject } from 'rxjs';
-import { FormControl } from '@angular/forms';
-import { HostListener } from '@angular/core';
+import { FormControl, FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { map, startWith } from 'rxjs/operators';
+import { Observable, ReplaySubject } from 'rxjs';
+import { MatTableDataSource, MatSort, MatPaginator, MatSnackBar } from '@angular/material';
+
 
 export interface columnDato {
   position: number;
@@ -28,19 +27,25 @@ const DATA: columnDato[] = [
   { position: 11, nameColumn: 'laboratorio', description: 'laboratorio', state: false },
 ];
 
-
 @Component({
-  selector: 'app-producto-list',
-  templateUrl: './producto-list.component.html',
-  styleUrls: ['./producto-list.component.scss']
+  selector: 'app-venta-edit',
+  templateUrl: './venta-edit.component.html',
+  styleUrls: ['./venta-edit.component.scss']
 })
+export class VentaEditComponent implements OnInit {
 
-export class ProductoListComponent implements OnInit {
-  constructor(public dialog: MatDialog, private dataService: DataService, private snackBar: MatSnackBar) { }
+  displayCliente = [];
+  dispalyColumnTable: string[] = ['codigo', 'producto', 'cantidad', 'precio', 'monto', 'acciones'];
+  ClienteControl = new FormControl();
+  filtradoCliente: Observable<any[]>;
+  form: FormGroup;
+  displayTipoComprobante = [];
+  sizediv = '0';
 
+
+  //producto list
   displayColumns: string[] = ['codigo', 'producto', 'precioCompra', 'precioVenta', 'stock', 'fechaVencimiento',
     'acciones'];
-
   dataSource: MatTableDataSource<any>;
   cantidad: number;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -53,13 +58,23 @@ export class ProductoListComponent implements OnInit {
   displayDolenia = [];
   tempList = [];
   listDolenciaSelection = [];
-
   public bankFilterCtrl: FormControl = new FormControl();
   public filtradoDolores: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
 
   stadoListDolencia = false;
   stadoCheckbox = true;
+  ventas: FormArray;
+
+  constructor(
+    private dataService: DataService,
+    private formbuilder: FormBuilder,
+    private snackBar: MatSnackBar
+  ) { }
+
   ngOnInit() {
+    this.listarCliente();
+    this.buildForm();
+    this.listarTipoComprobante();
     this.dataService.productos().getAll().subscribe(data => {
       this.setData(data);
       this.dataSource.filterPredicate = (dato, filter: string) => {
@@ -80,6 +95,77 @@ export class ProductoListComponent implements OnInit {
     });
     this.listarDolencias();
   }
+
+  addVenta(value) {
+
+    this.ventas = this.form.controls.detalleVenta as FormArray;
+    this.ventas.push(this.createItem(value));
+
+  }
+
+  createItem(value) {
+    const cantidad = Number(document.getElementById((value.idProducto).toString()) as HTMLInputElement).value;
+
+    return this.formbuilder.group({
+      producto: value,
+      cantidadVenta: cantidad,
+      costoTotalVenta: cantidad * value.precioVenta,
+      precioVentaUnitario : value.precioVenta ,
+
+    });
+  }
+
+  buildForm() {
+    this.form = this.formbuilder.group({
+      ClienteControl: this.ClienteControl,
+      fechaVenta: [null, Validators.compose([Validators.required])],
+      comprobante: [null, Validators.compose([Validators.required])],
+      detalleVenta: this.formbuilder.array([]),
+    });
+  }
+
+
+  OpenProducto(value) {
+    this.sizediv = value;
+  }
+  filtrarCliente(value) {
+    if (value.persona != null) {
+      const filtro = value;
+      console.log(value);
+      return this.displayCliente.filter(option => option.persona.nombre.toLowerCase().includes(filtro.persona.nombre.toLowerCase()));
+
+    } else {
+      const filtro = value.toLowerCase();
+      console.log(value);
+      return this.displayCliente.filter(option => option.persona.nombre.toLowerCase().includes(filtro));
+
+    }
+  }
+  displayFn(user) {
+    return user ? user.persona.nombre : undefined;
+  }
+  listarCliente() {
+    this.dataService.clientes().getAll().subscribe(dato => {
+      this.displayCliente = dato;
+      this.filtradoCliente = this.ClienteControl.valueChanges.pipe(
+        startWith(''),
+        map(value => this.filtrarCliente(value))
+      );
+      console.log(this.displayCliente);
+    });
+
+  }
+
+  listarTipoComprobante() {
+    this.dataService.tipoComprobantes().getAll().subscribe(dato => {
+      this.displayTipoComprobante = dato;
+    });
+  }
+
+  enviar() {
+    console.log(this.form.value);
+  }
+
 
   listarDolencias() {
     this.dataService.dolencias().getAll().subscribe(data => {
@@ -113,13 +199,6 @@ export class ProductoListComponent implements OnInit {
   }
 
 
-  openDialog(product: any): void {
-    let producto = product != null ? product : new Producto();
-    const dialog = this.dialog.open(ProductoEditComponent, {
-      width: '1250px',
-      data: producto
-    });
-  }
 
   changeSeacch(mode) {
     if (this.searchMode === 'search') {
@@ -183,7 +262,6 @@ export class ProductoListComponent implements OnInit {
     if (this.listDolenciaSelection.length > 0) {
       let newList = this.tempList;
       this.listDolenciaSelection.forEach(element => {
-        //console.log(this.tempList[0].detalleDolencia.dolencia);
         const obj = newList.filter(o => this.searchArrayDolencia(o, element));
         newList = obj;
       });
@@ -239,4 +317,7 @@ export class ProductoListComponent implements OnInit {
 
 
 }
+
+
+
 

@@ -105,13 +105,13 @@
                 </mat-form-field>
               </div>
               <mat-form-field fxFlex="10%" fxFlex.xs="grow">
-                <input matInput type="number" formControlName="cantidaditem" required>
+                <input matInput type="number" formControlName="cantidadAgregada" required>
               </mat-form-field>
               <mat-form-field fxFlex="10%" fxFlex.xs="grow">
-                <input matInput class="right" type="number" formControlName="precioItem" required>
+                <input matInput class="right" type="number" formControlName="precioUnitario" required>
               </mat-form-field>
               <mat-form-field fxFlex="10%" fxFlex.xs="grow">
-                <input matInput class="right" formControlName="importeTotal">
+                <input matInput class="right" formControlName="precioTotal">
                 <span matPrefix>s/.&nbsp;</span>
               </mat-form-field>
               <button type="button" mat-icon-button matTooltip="Eliminar" color="warn" (click)="eliminar(i)">

@@ -11,6 +11,7 @@ import { ProveedorListComponent } from './pages/personal/proveedor-list/proveedo
 import { CompraListComponent } from './pages/compra/compra-list/compra-list.component';
 import { CompraEditComponent } from './pages/compra/compra-edit/compra-edit.component';
 import { TipoComprobanteListComponent } from './pages/compra/tipo-comprobante-list/tipo-comprobante-list.component';
+import { VentaEditComponent } from './pages/compra/venta-edit/venta-edit.component';
 
 const routes: Routes = [
   { path: 'unidad', component: UnidadListComponent},
@@ -24,7 +25,8 @@ const routes: Routes = [
   { path: 'compra' , component: CompraListComponent},
   { path: 'compraN' , component: CompraEditComponent},
   { path: 'tipoComprobante' , component: TipoComprobanteListComponent },
-  { path: 'proveedor'  , component: ProveedorListComponent }
+  { path: 'proveedor'  , component: ProveedorListComponent },
+  { path: 'venta' , component : VentaEditComponent}
 ];
 
 @NgModule({

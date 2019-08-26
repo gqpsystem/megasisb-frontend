@@ -1,4 +1,4 @@
-<div class="example-container">
+<div class="example-container " style="overflow:auto">
   <mat-toolbar color="accent" style="color:white" class="example-toolbar">
     <button class="option-nav" *ngIf="searchMode!=='close'" mat-icon-button (click)="sidenav.toggle()"
       style="color:white">
@@ -111,10 +111,9 @@
       <mat-divider></mat-divider>
     </mat-sidenav>
 
-    <mat-sidenav-content>
-      <router-outlet></router-outlet>
-      <div style="margin: 25px ; overflow: hidden; ">
-        <router-outlet></router-outlet>
+    <mat-sidenav-content class="sip" >
+      <div class="hijo" >
+        <router-outlet  ></router-outlet>
       </div>
     </mat-sidenav-content>
   </mat-sidenav-container>

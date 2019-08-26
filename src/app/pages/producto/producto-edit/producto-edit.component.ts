@@ -13,7 +13,7 @@ export class ProductoEditComponent implements OnInit {
 
   id: number;
   form: FormGroup;
-  dolencias: any[];
+  dolencias = [];
   categorias: any[];
   medidas: any[];
   lstunidadmedidas: any[] = [];
@@ -21,7 +21,7 @@ export class ProductoEditComponent implements OnInit {
   ImageProducto = 'http://localhost:8083/api/image/producto/defaul-photo.jpg';
   fileUpload: File = null;
   productoFile: File = null;
-  dolores: any[] = [];
+  dolores = [];
   filtromedida: any[] = [];
   filtroCategoria: any[] = [];
   list = [];
@@ -39,14 +39,23 @@ export class ProductoEditComponent implements OnInit {
     this.listarCategoria();
     this.initFormBuilder();
     this.id = this.data.idProducto;
-    this.loadFormField();
     this.loadImage();
     this.fuctionsDolencias();
+    this.loadFormField();
 
   }
-  selectOption(value) {
-    this.list = this.form.get('dolencia').value;
 
+  compareDolencia(dolencia1, dolencia2) {
+    return dolencia1.idDolencia.dolencia === dolencia2.idDolencia.dolencia;
+  }
+
+  selectOption() {
+    this.list = this.form.get('detalleDolencia').value;
+  }
+  actualizar(value) {
+
+    this.form.get('detalleDolencia').setValue(value);
+    this.selectOption();
   }
 
   buscardolor(event) {
@@ -98,7 +107,7 @@ export class ProductoEditComponent implements OnInit {
       recomendacion: [null, Validators.compose([Validators.required])],
       categoria: [null, Validators.compose([Validators.required])],
       unidadMedida: [null, Validators.compose([Validators.required])],
-      dolencia: [null, Validators.compose([Validators.required])],
+      detalleDolencia: [null, Validators.compose([Validators.required])],
       imagen: [null, Validators.compose([])]
     });
   }
@@ -114,23 +123,26 @@ export class ProductoEditComponent implements OnInit {
       this.ImageProducto = event.target.result;
     };
     reader.readAsDataURL(this.fileUpload);
-    console.log(this.fileUpload);
   }
 
 
   listarDolencia() {
     this.dataService.dolencias().getAll().subscribe(data => {
+      const arra = [];
+      data.forEach(dato => {
+        const json = {
+          idDolencia: dato,
+          idDetalleDolencia: 0
+        };
+        arra.push(json);
 
-      this.dolencias = data;
-      this.dolores = this.dolencias;
-
+      });
+      this.dolencias = arra;
+      this.dolores = arra;
     });
 
   }
 
-  compareDolencia(x: any, y: any): boolean {
-    return x && y ? x.idDolencia === y.idDolencia : x === y;
-  }
 
   listarMedida() {
     this.dataService.unidadMedidas().getAll().subscribe(data => {
@@ -164,8 +176,10 @@ export class ProductoEditComponent implements OnInit {
     if (this.id != null && this.data.idProducto > 0) {
       this.dataService.productos().findById(this.id).subscribe(dato => {
         this.form.patchValue(dato);
-        console.log(this.form.value);
-
+        dato.detalleDolencia.forEach(dato => {
+          dato.idDetalleDolencia = 0;
+        });
+        this.actualizar(dato.detalleDolencia);
       });
     }
   }
@@ -176,7 +190,6 @@ export class ProductoEditComponent implements OnInit {
 
     formData.append('file', this.fileUpload);
     formData.append('product', producto);
-    console.log(this.form.value);
 
     if (this.id != null && this.data.idProducto > 0) {
       this.dataService.productos().update(formData).subscribe(data => {

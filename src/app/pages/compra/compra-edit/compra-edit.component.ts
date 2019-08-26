@@ -43,6 +43,7 @@ export class CompraEditComponent implements OnInit {
 
     this.listaTipoComprobante();
     this.dataService.providers().dialogo.subscribe(data => {
+      console.log(data);
       let item = this.detalleCompra.value.filter((test, index, array) =>
         index === array.findIndex((findTest) =>
           findTest.producto.idProducto === data.producto.idProducto));
@@ -50,13 +51,16 @@ export class CompraEditComponent implements OnInit {
         this.dataService.providers().mensaje.next('El producto ya fue agreagado')
         return;
       }
+      console.log(data.stock)
       const formGroup = this.addDetalleFormControl();
       formGroup.patchValue({
-        precioItem: +data.precioItem,
-        cantidaditem: data.cantidaditem,
-        importeTotalItem: +data.importeTotalItem.toFixed(2),
+        precioUnitario: +data.precioItem,
+        cantidadAgregada: data.cantidaditem,
+        precioTotal: +data.importeTotalItem.toFixed(2),
         producto: data.producto,
-        productoT: data.producto
+        productoT: data.producto,
+        cantidadAnterior: data.producto.stock,
+        cantidad: data.producto.stock + 1
       });
     });
     /*this.dataService.providers().mensaje.subscribe(data => {
@@ -104,10 +108,12 @@ export class CompraEditComponent implements OnInit {
   addDetalleFormControl(): FormGroup {
     const formGroup = this.formBuilder.group({
       idDetalleCompra: [null],
-      precioItem: [0, Validators.compose([Validators.required])],
-      cantidaditem: [0, Validators.compose([Validators.required])],
+      precioUnitario: [0, Validators.compose([Validators.required])],
+      cantidadAnterior: 0,
+      cantidad: 0,
+      cantidadAgregada: [0, Validators.compose([Validators.required])],
       importeTotal: [{ value: '', disabled: true }, Validators.compose([Validators.required])],
-      importeTotalItem: [null, Validators.compose([Validators.required])],
+      precioTotal: [null, Validators.compose([Validators.required])],
       productoT: this.formBuilder.group({
         codigo: [{ value: '', disabled: true }],
         numProducto: [{ value: '', disabled: true }],
@@ -117,26 +123,29 @@ export class CompraEditComponent implements OnInit {
     });
     this.detalleChange(formGroup);
     this.detalleCompra.push(formGroup);
+    console.log(this.form.value);
     return formGroup;
   }
 
   detalleChange(formGroup: FormGroup) {
-    formGroup.get("precioItem").valueChanges.subscribe(value => {
+    formGroup.get("precioUnitario").valueChanges.subscribe(value => {
       const precio = value || 0;
-      const cantidad = formGroup.get("cantidaditem").value || 0;
+      const cantidad = formGroup.get("cantidadAgregada").value || 0;
       let subTotal = parseFloat(precio) * parseFloat(cantidad);
       formGroup.patchValue({
-        importeTotalItem: +subTotal.toFixed(2),
+        precioTotal: +subTotal.toFixed(2),
         importeTotal: +subTotal.toFixed(2)
       });
     });
-    formGroup.get("cantidaditem").valueChanges.subscribe(value => {
-      const precio = formGroup.get("precioItem").value || 0;
+    formGroup.get("cantidadAgregada").valueChanges.subscribe(value => {
+      const precio = formGroup.get("precioUnitario").value || 0;
       const cantidad = value || 0;
+      const cantidadTotal = formGroup.get('cantidadAnterior').value + cantidad;
       let subTotal = parseFloat(precio) * parseFloat(cantidad);
       formGroup.patchValue({
-        importeTotalItem: +subTotal.toFixed(2),
-        importeTotal: +subTotal.toFixed(2)
+        precioTotal: +subTotal.toFixed(2),
+        importeTotal: +subTotal.toFixed(2),
+        cantidad: cantidadTotal
       });
     });
   }
@@ -146,8 +155,8 @@ export class CompraEditComponent implements OnInit {
     /*let igv = 0;
     let neto = 0;*/
     this.detalleCompra.controls.forEach(formControl => {
-      const precio = formControl.get("precioItem").value || 0;
-      const cantidad = formControl.get("cantidaditem").value || 0;
+      const precio = formControl.get("precioUnitario").value || 0;
+      const cantidad = formControl.get("cantidadAgregada").value || 0;
       total = total + parseFloat(precio) * parseFloat(cantidad);
       /*const igvItem = total * 0.18;
       neto += subTotal;
@@ -168,6 +177,7 @@ export class CompraEditComponent implements OnInit {
   get detalleCompra(): FormArray {
     return this.form.get('detalleCompra') as FormArray;
   }
+
 
   filter(val: any) {
     if (val != null && val.idProveedor > 0) {
@@ -193,7 +203,6 @@ export class CompraEditComponent implements OnInit {
     this.dataService.proveedores().getAll().subscribe(data => {
       this.proveedores = data;
 
-      console.log(data);
     });
   }
 
@@ -211,7 +220,7 @@ export class CompraEditComponent implements OnInit {
   }
 
   cancel() {
-    
+
     if (this.edicion) {
       this.router.navigate(['../../'], { relativeTo: this.route });
     } else {
