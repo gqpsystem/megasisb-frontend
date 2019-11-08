@@ -12,21 +12,23 @@ import { CompraListComponent } from './pages/compra/compra-list/compra-list.comp
 import { CompraEditComponent } from './pages/compra/compra-edit/compra-edit.component';
 import { TipoComprobanteListComponent } from './pages/compra/tipo-comprobante-list/tipo-comprobante-list.component';
 import { VentaEditComponent } from './pages/compra/venta-edit/venta-edit.component';
+import { ProformaEditComponent } from './pages/compra/proforma-edit/proforma-edit.component';
 
 const routes: Routes = [
-  { path: 'unidad', component: UnidadListComponent},
-  { path: 'categoria' , component: CategoriaListComponent  },
-  { path: 'producto' , component: ProductoListComponent},
-  { path: 'dolencia' , component: DolenciaListComponent },
-  { path: 'personal' , component: PersonalListComponent},
-  { path: 'documento' , component: DocumentoListComponent},
-  { path: 'cliente' , component: ClienteListComponent},
-  { path: 'proveedor' , component: ProveedorListComponent},
-  { path: 'compra' , component: CompraListComponent},
-  { path: 'compraN' , component: CompraEditComponent},
-  { path: 'tipoComprobante' , component: TipoComprobanteListComponent },
-  { path: 'proveedor'  , component: ProveedorListComponent },
-  { path: 'venta' , component : VentaEditComponent}
+  { path: 'unidad', component: UnidadListComponent },
+  { path: 'categoria', component: CategoriaListComponent },
+  { path: 'producto', component: ProductoListComponent },
+  { path: 'dolencia', component: DolenciaListComponent },
+  { path: 'personal', component: PersonalListComponent },
+  { path: 'documento', component: DocumentoListComponent },
+  { path: 'cliente', component: ClienteListComponent },
+  { path: 'proveedor', component: ProveedorListComponent },
+  { path: 'compra', component: CompraListComponent },
+  { path: 'compraN', component: CompraEditComponent },
+  { path: 'tipoComprobante', component: TipoComprobanteListComponent },
+  { path: 'proveedor', component: ProveedorListComponent },
+  { path: 'venta', component: VentaEditComponent },
+  { path: 'proforma', component: ProformaEditComponent }
 ];
 
 @NgModule({

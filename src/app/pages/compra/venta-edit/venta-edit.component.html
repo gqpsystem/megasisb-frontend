@@ -3,7 +3,7 @@
     <div fxFlex=100% fxLayoutAlign="start start ">
       <button mat-icon-button style="font-size:20px" color="warn" (click)="OpenProducto('0%')"> &#10006; </button>
     </div>
-    <div class="page-layout blank p-24 div-table" megaPerfectScrollbar fxFlex="100%" fxLayout="row wrap">
+    <div class="page-layout blank p-24 " style="display: block" megaPerfectScrollbar>
       <div [fxFlex]="tablaSinedav" fxLayout="row wrap">
         <mat-toolbar style="font-size:1px" color="primary" style="border-radius: 5px 5px 0px 0px" fxFlex="100%">
           <span *ngIf="searchMode !=='search' && searchMode !=='view_module'  " class="table-title">LISTA DE
@@ -118,20 +118,18 @@
               <ng-container matColumnDef="acciones">
                 <mat-header-cell *matHeaderCellDef fxFlex="10%">ACCIONES</mat-header-cell>
                 <mat-cell fxFlex="10%" *matCellDef="let row">
-                  <mat-form-field fxFlex="200px">
-                    <input matInput placeholder="Cantidad" id="{{row.idProducto}}" (keyup.enter)="addVenta(row)"
-                      value="1">
-                    <button mat-icon-button matTooltip="Agregar" color="primary" (click)="addVenta(row)">
-                      <mat-icon>add_shopping_cart</mat-icon>
-                    </button>
+                  <mat-form-field fxFlex="80px">
+                    <input matInput fxFlex="70px" placeholder="Cantidad" id="{{row.idProducto}}"
+                      (keyup.enter)="addVenta(row)" value="1">
                   </mat-form-field>
-
+                  <button mat-icon-button matTooltip="Agregar" color="primary" (click)="addVenta(row)">
+                    <mat-icon>add_shopping_cart</mat-icon>
+                  </button>
                 </mat-cell>
               </ng-container>
 
               <mat-header-row *matHeaderRowDef="displayColumns"></mat-header-row>
-              <mat-row *matRowDef="let row; columns: displayColumns;"
-                [ngClass]="row.idProducto == SelectFocus ? 'focusSelect fila': 'fila'" (click)="selectRow(row)">
+              <mat-row *matRowDef="let row; columns: displayColumns;">
               </mat-row>
             </mat-table>
             <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
@@ -164,9 +162,9 @@
     <form [formGroup]="form" fxLayout="row wrap">
       <div fxFlex="100%" fxLayout="row wrap" style="background : white ; padding :15px ; border-radius:5px">
         <div fxFlex="100%">
-          <h3>Datos de Venta</h3>
+          <h3 style="color: #354052 ; font-family:  Source Sans Pro,sans-serif;">Datos de Venta</h3>
         </div>
-        <div fxFlex="50%">
+        <div fxFlex="100%">
           <mat-form-field fxFlex>
             <input required matInput type="text" placeholder="cliente" [formControl]="ClienteControl"
               [matAutocomplete]="auto">
@@ -178,18 +176,18 @@
             <mat-icon matSuffix>perm_identityt</mat-icon>
           </mat-form-field>
         </div>
-        <div fxFlex="50%" fxLayout="row" fxLayoutAlign="space-around center">
+        <div fxFlex="100%" fxLayout="row" fxLayoutAlign="space-between center">
           <div fxFlex="40%" class="selec-dato">
-            <mat-form-field>
+            <mat-form-field fxFlex>
               <input matInput formControlName="fechaVenta" [matDatepicker]="picker"
-                placeholder="Fecha de Compra mes/dia/año">
+                placeholder="Fecha de Venta mes/dia/año">
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
 
           </div>
           <div fxFlex="40%" class="selec-dato">
-            <mat-form-field>
+            <mat-form-field fxFlex>
               <mat-label>Tipo de comprobante</mat-label>
 
               <mat-select formControlName="comprobante">
@@ -206,7 +204,7 @@
         style="background : white ; padding :15px ; border-radius:5px;margin-top:25px">
         <div fxFlex="100%">
           <div fxFlex="100%">
-            <h3>Detalle de la venta</h3>
+            <h3 style="color: #354052;font-family:  Source Sans Pro,sans-serif;">Detalle de la venta</h3>
             <div fxFlex fxLayoutAlign="end start">
               <button matPrefix mat-raised-button color="warn" type="button" (click)="OpenProducto('100%')">
                 <mat-icon>add</mat-icon>
@@ -240,36 +238,66 @@
             <tr mat-header-row *matHeaderRowDef="dispalyColumnTable"></tr>
             <tr mat-row *matRowDef="let row; columns: dispalyColumnTable;"></tr>
           </table>
-          <div fxFlex="100%">
-            <div formArrayName="detalleVenta" *ngFor="let item of form.controls.detalleVenta?.value; let i=index">
-              <div [formGroupName]="i">
-                <div fxFlex="20%" >
-                  {{item.producto.codigo}}
-                </div>
-                <div fxFlex="30%" >
-                  {{item.producto.numProducto}}
-                </div>
-                <div fxFlex="15%"  >
-                  <mat-form-field fxFlex >
-                    <input matInput  formControlName="cantidad" >
+          <mat-divider></mat-divider>
+          <div fxLayout="column" fxFlex="100%" style="padding:10px ; margin: 5px">
+            <div formArrayName="detalleVenta"
+              *ngFor="let item of form.controls.detalleVenta?.value; let i=index ; trackBy: trackByFn">
+              <div [formGroupName]="i" style="height: 40px" style="padding-bottom: 0.8em ">
+
+
+                <div fxFlex="20%">
+                  <mat-form-field fxFlex="80%">
+                    <input matInput disabled value="{{item.producto.codigo}}">
                   </mat-form-field>
                 </div>
-                <div fxFlex="15%"  >
-                  <mat-form-field fxFlex >
-                    <input matInput  formControlName="costoTotalVenta" >
+                <div fxFlex="30%">
+                  <mat-form-field fxFlex="80%">
+                    <input matInput disabled value="{{item.producto.numProducto}}">
                   </mat-form-field>
                 </div>
-                <div fxFlex="15%"  >
-                  <mat-form-field fxFlex >
-                    <input matInput  formControlName="precioVentaUnitario" >
+                <div fxFlex="15%" class="input-table">
+                  <mat-form-field fxFlex="80%">
+                    <input type="number" matInput required aria-required="true" formControlName="cantidadVenta">
                   </mat-form-field>
                 </div>
-                
+                <div fxFlex="15%" class="input-table">
+                  <mat-form-field fxFlex="80%">
+                    <input matInput type="number" required formControlName="precioVentaUnitario">
+                  </mat-form-field>
+                </div>
+                <div fxFlex="15%" class="input-table">
+                  <mat-form-field fxFlex="80%">
+                    <input matInput formControlName="costoTotalVenta">
+                  </mat-form-field>
+                </div>
+
+                <div fxFlex="5%" style="padding-top : 0.7em">
+                  <button type="button" mat-icon-button matTooltip="Eliminar" color="warn" (click)="eliminar(i)">
+                    <mat-icon>delete_sweep</mat-icon>
+                  </button>
+                </div>
               </div>
+            </div>
+            <mat-divider></mat-divider>
+            <div fxFlex=100% fxLayout="column" fxLayoutAlign="start end">
+              <div fxLayout="row">
+                SUB. TOTAL :
+                <span fxFlex="80px" style="text-align: center">{{form.get('neto').value | number : '1.2-2'}}</span>
+              </div>
+              <div fxLayout="row">
+                IGV:
+                <span fxFlex="80px" style="text-align: center">{{form.get('igv').value | number : '1.2-2'}}</span>
+              </div>
+              <div>
+                TOTAL :
+                <span fxFlex="80px" style="text-align: center">{{form.get('montoTotalVenta').value | number : '1.2-2'}}</span>
+              </div>
+              <mat-divider></mat-divider>
             </div>
           </div>
         </div>
       </div>
+
       <div fxFlex="100%">
         <button mat-raised-button color="primary" [disabled]="!form.valid" (click)="enviar()">Enviar</button>
         <button mat-raised-button color="warn">Cancelar</button>

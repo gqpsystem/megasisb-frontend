@@ -4,6 +4,7 @@ import { FormControl, FormGroup, FormBuilder, Validators, FormArray } from '@ang
 import { map, startWith } from 'rxjs/operators';
 import { Observable, ReplaySubject } from 'rxjs';
 import { MatTableDataSource, MatSort, MatPaginator, MatSnackBar } from '@angular/material';
+import { SinedavService } from 'src/app/provider/sinedav.service';
 
 
 export interface columnDato {
@@ -68,7 +69,8 @@ export class VentaEditComponent implements OnInit {
   constructor(
     private dataService: DataService,
     private formbuilder: FormBuilder,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private sidenav: SinedavService
   ) { }
 
   ngOnInit() {
@@ -98,45 +100,122 @@ export class VentaEditComponent implements OnInit {
 
   addVenta(value) {
 
+
+
     this.ventas = this.form.controls.detalleVenta as FormArray;
-    this.ventas.push(this.createItem(value));
+    const rep = this.ventas.getRawValue().findIndex(dato => dato.producto.idProducto === value.idProducto);// si el elemento repite
+    if (rep !== -1) {
+      this.snackBar.open(' Producto Repitido', 'cerrar', {
+        duration: 2000
+      });
+    } else {
+      const cantidad = Number((document.getElementById((value.idProducto).toString()) as HTMLInputElement).value);
+
+      const formGroup = this.addDetalleControl();
+
+
+
+      formGroup.patchValue({
+        producto: value,
+        cantidadVenta: cantidad,
+        costoTotalVenta: cantidad * value.precioVenta,
+        precioVentaUnitario: value.precioVenta
+      });
+      this.calcularTotal();
+    }
+  }
+  trackByFn(index) {
+    return index;
+  }
+
+  eliminar(index) {
+    this.detalleventa().removeAt(index);
+    this.calcularTotal();
+  }
+
+  calcularTotal() {
+    const ventas = this.detalleventa().getRawValue();
+    let total = 0;
+    ventas.forEach(dato => {
+      const cantidad = dato.cantidadVenta || 0;
+      const precioUnitario = dato.precioVentaUnitario || 0;
+      total = total + cantidad * parseFloat(precioUnitario);
+    });
+    const neto = total / 1.18;
+    const igv = neto * 0.18;
+    this.form.patchValue({
+      montoTotalVenta: +total.toFixed(2),
+      neto: +neto.toFixed(2),
+      igv: +igv.toFixed(2)
+    });
 
   }
 
-  createItem(value) {
-    const cantidad = Number(document.getElementById((value.idProducto).toString()) as HTMLInputElement).value;
+  addDetalleControl() {
+    const formgroup = this.formbuilder.group({
 
-    return this.formbuilder.group({
-      producto: value,
-      cantidadVenta: cantidad,
-      costoTotalVenta: cantidad * value.precioVenta,
-      precioVentaUnitario : value.precioVenta ,
+      iddDetalleVenta: null,
+      producto: [null, Validators.compose([Validators.required])],
+      cantidadVenta: [0, Validators.compose([Validators.required])],
+      costoTotalVenta: [{ value: 0, disabled: true }, Validators.compose([Validators.required])],
+      precioVentaUnitario: [0, Validators.compose([Validators.required])]
 
     });
+
+    this.alistarDetalle(formgroup);
+
+    this.detalleventa().push(formgroup);
+    return formgroup;
   }
+
+  alistarDetalle(formGroup: FormGroup) {
+    formGroup.get('cantidadVenta').valueChanges.subscribe(valueC => {
+      const precioUnitario = formGroup.get('precioVentaUnitario').value;
+      formGroup.get('costoTotalVenta').setValue(precioUnitario * valueC);
+      this.calcularTotal();
+    });
+
+    formGroup.get('precioVentaUnitario').valueChanges.subscribe(valueC => {
+      const cantidad = formGroup.get('cantidadVenta').value;
+      formGroup.get('costoTotalVenta').setValue(cantidad * valueC);
+      this.calcularTotal();
+    });
+  }
+
+
+  detalleventa(): FormArray {
+    return this.form.get('detalleVenta') as FormArray;
+  }
+
 
   buildForm() {
     this.form = this.formbuilder.group({
       ClienteControl: this.ClienteControl,
       fechaVenta: [null, Validators.compose([Validators.required])],
       comprobante: [null, Validators.compose([Validators.required])],
-      detalleVenta: this.formbuilder.array([]),
+      detalleVenta: this.formbuilder.array([], Validators.compose([])),
+      montoTotalVenta: [0, Validators.compose([Validators.required])],
+      estadoVenta: ['Sin confirmar', Validators.compose([Validators.required])],
+      personal: null,
+      formaPago: ['Pago Directo', Validators.compose([Validators.required])],
+      neto: [0, Validators.compose([Validators.required])],
+      igv: [0, Validators.compose([Validators.required])]
     });
   }
 
 
   OpenProducto(value) {
+    this.sidenav.close();
     this.sizediv = value;
+   
   }
   filtrarCliente(value) {
     if (value.persona != null) {
       const filtro = value;
-      console.log(value);
       return this.displayCliente.filter(option => option.persona.nombre.toLowerCase().includes(filtro.persona.nombre.toLowerCase()));
 
     } else {
       const filtro = value.toLowerCase();
-      console.log(value);
       return this.displayCliente.filter(option => option.persona.nombre.toLowerCase().includes(filtro));
 
     }
@@ -184,7 +263,7 @@ export class VentaEditComponent implements OnInit {
 
 
   setData(data) {
-    let r = data;
+    const r = data;
     this.cantidad = JSON.parse(JSON.stringify(data)).length;
     this.dataSource = new MatTableDataSource(r);
     this.dataSource.paginator = this.paginator;

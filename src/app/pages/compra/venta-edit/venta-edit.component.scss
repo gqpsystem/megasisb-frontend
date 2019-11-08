@@ -1,13 +1,10 @@
 .fondo{
-    background: rgba(235, 237, 238, 0.88);
-    border-radius: 5px ; 
+    background: #eff3f6;
 }
 
 .ventana{
     margin: 5px;
     padding: 15px;
-    border: 1px #456575 solid;
-    border-radius: 5px;
 }
 .selec-dato{
     padding-left: 15px;
@@ -16,8 +13,7 @@
 .table{
     .table-dato{
         
-        padding: 10px;
-        border-radius: 5px ;
+        border-radius: 2px ;
         margin: 5px;
     }
 }
@@ -26,7 +22,7 @@
     top: 0;
     height: 100%;
     left: 0;
-    background: rgba(235, 237, 238, 0.88);
+    background: #17a2b8;
     z-index: 411;
     width: 0;
     overflow-x: hidden; 
@@ -99,10 +95,7 @@ $breakpoint-lg: 1360px;
   }
 }
 
-.div-table{
-  
- 
-}
+
 
 
 mat-toolbar{
@@ -164,4 +157,8 @@ mat-toolbar{
     visibility: visible;
     overflow: auto;
   }
+}
+
+.input-table div {
+  border-top: 0px;
 }

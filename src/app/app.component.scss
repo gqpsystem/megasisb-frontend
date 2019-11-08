@@ -11,7 +11,7 @@
 .example-app-name {
   cursor: pointer;
 }
-.icon-personal{
+.icon-personal {
   border-radius: 50%;
 }
 .example-toolbar {
@@ -19,7 +19,7 @@
     &:hover {
       color: #2ac4ea;
     }
-    &:focus-within{
+    &:focus-within {
       color: #2ac4ea;
     }
   }
@@ -35,7 +35,6 @@
     margin-bottom: 10px;
   }
 }
-
 
 .example-spacer {
   flex: 1 1 auto;
@@ -53,12 +52,13 @@
 }
 
 .menu-sinedav {
-  background: linear-gradient(red, #9198e5);
+  background: linear-gradient( to top  ,#564FC1, #9198e5);
   color: white;
+  
 
   .container-sinedav {
     button {
-      color:white;
+      color: white;
       mat-icon {
         color: rgba(0, 0, 0, 0.9);
       }
@@ -72,7 +72,7 @@
         background-color: #2ac4ea;
         color: white;
       }
-      &:focus-within{
+      &:focus-within {
         mat-icon {
           color: white;
           transition: 0.45s;
@@ -81,20 +81,76 @@
         background-color: #2ac4ea;
         color: white;
       }
-
     }
   }
 }
-.sip{
-   position:relative;
-   
+.sip {
+  position: relative;
 }
 
-.hijo{
+.hijo {
   overflow: hidden;
   padding: 15px;
-   top:0;
-   bottom:0;
-   padding-bottom: 30000px;
-   margin-bottom: -30000px; 
+  top: 0;
+  bottom: 0;
+  padding-bottom: 30000px;
+  margin-bottom: -30000px;
+}
+
+.list-nav {
+  padding: 0px;
+
+  li {
+    text-decoration: none;
+    list-style: none;
+    padding: 0px;
+    position: relative;
+    &.list {
+      position: relative;
+      &::after {
+        transition: 0.5s;
+        content: " ";
+        position: absolute;
+        margin-top: -8px;
+        border-width: 8px;
+        right: 0px;
+        top: 25px;
+        border-style: solid;
+        border-color: transparent black transparent transparent;
+      }
+    }
+    
+    ul {
+     
+      display: none;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateX(-220px)
+    }
+  }
+
+  li {
+    &:focus-within {
+      &.list {
+        &::after {
+          content: " ";
+          position: absolute;
+          margin-top: -8px;
+          border-width: 8px;
+          right: 0px;
+          top: 25px;
+          border-style: solid;
+          transform: rotate(-90deg);
+        }
+      }
+      > ul {
+        
+        transform: translateX(0px);
+        display: flex;
+        flex-direction: column;
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+  }
 }

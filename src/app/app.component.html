@@ -1,5 +1,5 @@
 <div class="example-container " style="overflow:auto">
-  <mat-toolbar color="accent" style="color:white" class="example-toolbar">
+  <mat-toolbar color="accent" style="color:white;background-color: #564FC1" class="example-toolbar">
     <button class="option-nav" *ngIf="searchMode!=='close'" mat-icon-button (click)="sidenav.toggle()"
       style="color:white">
       <mat-icon *ngIf="!sidenav.opened">menu</mat-icon>
@@ -30,12 +30,16 @@
         <mat-icon>account_box</mat-icon>
         <span *ngIf="userName">{{userName | uppercase }}</span>
         <span *ngIf="!userName">Anonimo</span>
-
+        <button mat-menu-item>
+          <mat-icon>build</mat-icon>
+          <span>Configuracion</span>
+        </button>
       </button>
       <button mat-menu-item (click)="sidenav.opened = false">
         <mat-icon>exit_to_app</mat-icon>
         <span>Cerrar Sesión</span>
       </button>
+
     </mat-menu>
     <mat-menu #roles="matMenu">
       <mat-list>
@@ -50,70 +54,133 @@
   </mat-toolbar>
 
   <mat-sidenav-container class="example-sidenav-container">
-    <mat-sidenav #sidenav mode="side" class="menu-sinedav" style="width: 200px">
-      <div class="logo">
-        <img
-          src="https://lh3.googleusercontent.com/-YuZUWA6_26w/WUkgwPYIS_I/AAAAAAAAADI/gZDsSjYoyH8-qp19K-o6zS1nK6iPGQ8VQCEwYBhgL/w140-h140-p/image-portada-dragon.jpg"
-          style="border-radius: 50% ;" width="64">
-        <br>
-        <span *ngIf="userName" fxHide fxShow.gt-sm>{{userName | uppercase }}</span>
-        <span *ngIf="!userName" fxHide fxShow.gt-sm class="name">Anonimo</span>
-        <br>
-        <span style="font-size: 12px ">Gerente</span>
-      </div>
-      <mat-divider></mat-divider>
+    <mat-sidenav #sidenav mode="side" class="menu-sinedav" style="width: 270px">
+      <div class="sidenav-full">
 
-      <div class="container-sinedav">
-        <div fxLayout="row" style="position: relative;" >
-          <button mat-menu-item routerLink="/producto" style="cursor: pointer ; font-size : 14px;height:40px">
-            <mat-icon>add_to_queue</mat-icon>
-            <span>Producto</span>
-          </button>
+        <div class="logo">
+          <img
+            src="https://lh3.googleusercontent.com/-YuZUWA6_26w/WUkgwPYIS_I/AAAAAAAAADI/gZDsSjYoyH8-qp19K-o6zS1nK6iPGQ8VQCEwYBhgL/w140-h140-p/image-portada-dragon.jpg"
+            style="border-radius: 50% ;" width="64">
+          <br>
+          <span *ngIf="userName" fxHide fxShow.gt-sm>{{userName | uppercase }}</span>
+          <span *ngIf="!userName" fxHide fxShow.gt-sm class="name">Anonimo</span>
+          <br>
+          <span style="font-size: 12px ">Gerente</span>
         </div>
-        <button mat-menu-item routerLink="/cliente" style="cursor: pointer ; font-size : 14px;height:40px">
-          <mat-icon>shopping_basket</mat-icon>
-          <span>Comprar</span>
-        </button>
-        <button mat-menu-item routerLink="/proveedor" style="cursor: pointer; font-size : 14px;height:40px">
-          <mat-icon>people</mat-icon>
-          <span>Proveedor</span>
-        </button>
-        <button mat-menu-item routerLink="/cliente" style="cursor: pointer; font-size : 14px;height:40px">
-          <mat-icon>pregnant_woman</mat-icon>
-          <span>Cliente</span>
-        </button>
-        <button mat-menu-item routerLink="/personal" style="cursor: pointer ; font-size : 14px;height:40px">
-          <mat-icon>account_circle</mat-icon>
-          <span>Personal</span>
-        </button>
-        <button mat-menu-item routerLink="/categoria" style="cursor: pointer ; font-size : 14px;height:40px">
-          <mat-icon>category</mat-icon>
-          <span>Categoria</span>
-        </button>
-        <button mat-menu-item routerLink="/dolencia" style="cursor: pointer ; font-size : 14px;height:40px">
-          <mat-icon>assignment</mat-icon>
-          <span>Dolencia</span>
-        </button>
-      
-        <button mat-menu-item routerLink="/unidad" style="cursor: pointer ; font-size : 14px;height:40px">
-          <mat-icon>label</mat-icon>
-          <span>Unidad de Medida</span>
-        </button>
-        <button mat-menu-item routerLink="/documento" style="cursor: pointer ; font-size : 14px;height:40px">
-          <mat-icon>filter_frames</mat-icon>
-          <span>Documento</span>
-        </button>
-        
+        <mat-divider></mat-divider>
+
+        <div class="container-sinedav">
+          <ul class="list-nav">
+
+            <li class="list">
+              <button mat-menu-item routerLink="/producto">
+                <mat-icon>view_list</mat-icon>
+                <span>Tienda</span>
+              </button>
+              <ul>
+                <li>
+                  <button mat-menu-item routerLink="/producto">
+                    <mat-icon>add_to_queue</mat-icon>
+                    <span>Producto</span>
+                  </button>
+                </li>
+                <li>
+                  <button mat-menu-item routerLink="/producto">
+                    <mat-icon>tab</mat-icon>
+                    <span>Unidad de Medida</span>
+                  </button>
+                </li>
+                <li>
+                  <button mat-menu-item routerLink="/producto">
+                    <mat-icon>library_books</mat-icon>
+                    <span>Categoria</span>
+                  </button>
+                </li>
+                <li>
+                  <button mat-menu-item routerLink="/producto">
+                    <mat-icon>queue</mat-icon>
+                    <span>Dolencia</span>
+                  </button>
+                </li>
+                <li>
+                  <button mat-menu-item routerLink="/producto">
+                    <mat-icon>receipt</mat-icon>
+                    <span>Tipo de Comprobante</span>
+                  </button>
+                </li>
+                <li>
+                  <button mat-menu-item routerLink="/producto">
+                    <mat-icon>description</mat-icon>
+                    <span>Documento</span>
+                  </button>
+                </li>
+              </ul>
+            </li>
+            <li class="list">
+              <button mat-menu-item>
+                <mat-icon>add_to_queue</mat-icon>
+                <span>Servicio</span>
+              </button>
+              <ul>
+                <li>
+                  <button mat-menu-item routerLink="/producto">
+                    <mat-icon>add_shopping_cart</mat-icon>
+                    <span>Compra</span>
+                  </button>
+                </li>
+                <li>
+                  <button mat-menu-item routerLink="/venta">
+                    <mat-icon>shopping_cart</mat-icon>
+                    <span>Venta</span>
+                  </button>
+                </li>
+                <li>
+                  <button mat-menu-item routerLink="/producto">
+                    <mat-icon>shopping_basket</mat-icon>
+                    <span>Proforma</span>
+                  </button>
+                </li>
+              </ul>
+            <li class="list">
+              <button mat-menu-item routerLink="/producto">
+                <mat-icon>supervised_user_circle</mat-icon>
+                <span>Perfiles</span>
+              </button>
+              <ul>
+                <li>
+                  <button mat-menu-item routerLink="/producto">
+                    <mat-icon>people</mat-icon>
+                    <span>Proveedor</span>
+                  </button>
+                </li>
+                <li>
+                  <button mat-menu-item routerLink="/producto">
+                    <mat-icon>wc</mat-icon>
+                    <span>Cliente</span>
+                  </button>
+                </li>
+                <li>
+                  <button mat-menu-item routerLink="/producto">
+                    <mat-icon>account_circle</mat-icon>
+                    <span>Personal</span>
+                  </button>
+                </li>
+
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+
+
+
+        <mat-divider></mat-divider>
       </div>
-
-
-
-      <mat-divider></mat-divider>
     </mat-sidenav>
 
-    <mat-sidenav-content class="sip" >
-      <div class="hijo" >
-        <router-outlet  ></router-outlet>
+    <mat-sidenav-content class="sip">
+      <div class="hijo">
+        <router-outlet></router-outlet>
       </div>
     </mat-sidenav-content>
   </mat-sidenav-container>

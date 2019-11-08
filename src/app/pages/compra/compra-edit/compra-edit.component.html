@@ -89,8 +89,8 @@
       </mat-table>
 
       <mat-divider></mat-divider>
-      <div formArrayName="detalleCompra">
-        <div *ngFor="let unit of detalleCompra.controls; let i=index">
+      <div>
+        <div  formArrayName="detalleCompra" *ngFor="let unit of detalleCompra.controls; let i=index">
           <div [formGroupName]="i">
             <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="2%" fxLayoutAlign="start stretch">
               <div formGroupName="productoT" fxFlex="70%" fxFlex.xs="100%">
